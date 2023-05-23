@@ -6,4 +6,5 @@ data class OrderInternal(
     val tableId: Long,
     val sessionID: Long,
     val sum: Double,
+    val closed: Boolean,
 )

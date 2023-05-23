@@ -6,4 +6,5 @@ data class OrderEntity(
     val tableId: Long,
     val sessionID: Long,
     val sum: Double,
+    val closed: Boolean,
 )
