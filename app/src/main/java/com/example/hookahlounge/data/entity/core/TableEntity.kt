@@ -4,4 +4,5 @@ data class TableEntity(
     val id: Long,
     val name: String,
     val seats: String,
+    val loungeId: Long,
 )
