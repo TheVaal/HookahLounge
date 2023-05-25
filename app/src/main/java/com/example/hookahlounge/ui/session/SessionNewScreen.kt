@@ -1,7 +1,11 @@
 package com.example.hookahlounge.ui.session
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.hookahlounge.domain.model.Lounge
 import com.example.hookahlounge.domain.model.Session
 import com.example.hookahlounge.domain.model.User
@@ -9,7 +13,7 @@ import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahTextField
 
 @Composable
-fun SessionNewScreen(){
+fun SessionNewScreen() {
     val session = Session(
         accessCode = "SR2222",
         id = 1L,
@@ -25,11 +29,15 @@ fun SessionNewScreen(){
 }
 
 @Composable
-fun SessionNewScreen(session: Session){
-    Column() {
-        HookahTextField(value = "", label = "owner Name" , onValueChange = {it})
-        HookahTextField(value = "", label = "owner phone" , onValueChange = {it})
-        HookahTextField(value = "", label = "lock date" , onValueChange = {it})
+fun SessionNewScreen(session: Session) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        HookahTextField(value = "", label = "owner Name", onValueChange = { it })
+        HookahTextField(value = "", label = "owner phone", onValueChange = { it })
+        HookahTextField(value = "", label = "lock date", onValueChange = { it })
         //HookahDateInput()
     }
 

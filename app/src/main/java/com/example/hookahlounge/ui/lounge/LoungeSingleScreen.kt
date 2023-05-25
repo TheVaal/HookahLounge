@@ -27,12 +27,12 @@ fun LoungeScreen() {
         address = "вулиця Лермонтова, 37, Кривий Ріг,"
     )
     val tables: List<Table> = listOf(
-        Table(1L, "Table 1", "4", 1L),
-        Table(2L, "Table 2", "2", 1L),
-        Table(3L, "Table 3", "4", 1L),
-        Table(4L, "Table 4", "2", 1L),
-        Table(5L, "Table 5", "6", 1L),
-        Table(6L, "Table 6", "2", 1L)
+        Table(1L, "Table 1", 4, 1L),
+        Table(2L, "Table 2", 2, 1L),
+        Table(3L, "Table 3", 4, 1L),
+        Table(4L, "Table 4", 2, 1L),
+        Table(5L, "Table 5", 6, 1L),
+        Table(6L, "Table 6", 2, 1L)
     )
     HookahScaffold {
         LoungeScreen(lounge, tables)

@@ -85,7 +85,11 @@ private fun SessionListScreen(list: List<Session>) {
 @Composable
 private fun SessionContent(item: Session) {
     TextButton(onClick = { /*TODO*/ }) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+            .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 contentDescription = null,
                 painter = getSessionStatusIcon(item.status),
@@ -108,15 +112,13 @@ private fun SessionContent(item: Session) {
                     text = item.lockDate,
                     fontWeight = FontWeight(500)
                 )
-
-                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     }
 }
 
 @Composable
-fun getSessionStatusIcon(status:Boolean): Painter {
+private fun getSessionStatusIcon(status:Boolean): Painter {
     return if (status) {
         painterResource(id = R.drawable.ic_lock_24)
     } else {

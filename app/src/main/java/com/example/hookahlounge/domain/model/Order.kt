@@ -2,9 +2,8 @@ package com.example.hookahlounge.domain.model
 
 data class Order(
     val id: Long,
-    val loungeId: Long,
-    val tableId: Long,
-    val sessionID: Long,
+    val table: Table,
+    val session: Session,
     val sum: Double,
-    val closed: Boolean,
+    val closed: Boolean = false,
 )

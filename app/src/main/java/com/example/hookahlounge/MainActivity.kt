@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.hookahlounge.ui.lounge.LoungeListScreen
 import com.example.hookahlounge.ui.lounge.LoungeScreen
+import com.example.hookahlounge.ui.order.OrderListScreen
+import com.example.hookahlounge.ui.order.OrderScreen
 import com.example.hookahlounge.ui.session.SessionListScreen
 import com.example.hookahlounge.ui.session.SessionNewScreen
 import com.example.hookahlounge.ui.theme.HookahLoungeTheme
@@ -16,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HookahLoungeTheme {
-                SessionNewScreen()
+               OrderScreen()
             }
         }
     }
