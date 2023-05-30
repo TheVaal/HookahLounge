@@ -14,11 +14,11 @@ import com.example.hookahlounge.domain.model.Lounge
 import com.example.hookahlounge.ui.theme.HookahLoungeTheme
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HeadlineLarge
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahLazyColumn
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.TitleMedium
 
+
 @Composable
-fun LoungeListScreen() {
+fun LoungeListScreen(toLounge: ()->(Unit)) {
     val list: List<Lounge> = listOf(
         Lounge(
             name = "BadSide",
@@ -41,21 +41,20 @@ fun LoungeListScreen() {
             address = "вулиця Лермонтова, 177, Кривий Ріг,"
         ),
     )
-    HookahScaffold {
-        LoungeListScreen(list)
-    }
+    LoungeListScreen(list, toLounge)
+
 }
 
 @Composable
-private fun LoungeListScreen(list: List<Lounge>) {
+private fun LoungeListScreen(list: List<Lounge>, toLounge: ()->(Unit)) {
     HookahLazyColumn(items = list) {
-        LoungeContent(it as Lounge)
+        LoungeContent(it as Lounge, toLounge)
     }
 }
 
 @Composable
-fun LoungeContent(item: Lounge) {
-    TextButton(onClick = { /*TODO*/ }) {
+fun LoungeContent(item: Lounge, toLounge: ()->(Unit)) {
+    TextButton(onClick = toLounge) {
 
         Column(
             modifier = Modifier
@@ -78,6 +77,6 @@ fun LoungeContent(item: Lounge) {
 @Composable
 fun LoungeListPreview() {
     HookahLoungeTheme {
-        LoungeListScreen()
+        LoungeListScreen {}
     }
 }

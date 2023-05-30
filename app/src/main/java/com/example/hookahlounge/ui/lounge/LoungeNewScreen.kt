@@ -15,20 +15,19 @@ import com.example.hookahlounge.ui.theme.HookahLoungeTheme
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HeadlineMedium
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HeadlineSmall
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahLazyGrid
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahTextField
 
 @Composable
 fun NewLoungeScreen() {
     val lounge = Lounge(
-            name = "",
-            id = 0L,
-            address = ""
+        name = "",
+        id = 0L,
+        address = ""
     )
     val tables: List<Table> = listOf()
-    HookahScaffold {
-        NewLoungeScreen(lounge, tables)
-    }
+
+    NewLoungeScreen(lounge, tables)
+
 
 }
 

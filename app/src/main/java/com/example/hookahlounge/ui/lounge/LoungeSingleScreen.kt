@@ -15,11 +15,10 @@ import com.example.hookahlounge.ui.theme.HookahLoungeTheme
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HeadlineMedium
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HeadlineSmall
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahLazyGrid
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahTextField
 
 @Composable
-fun LoungeScreen() {
+fun LoungeScreen(id: Long?) {
 
     val lounge = Lounge(
         name = "BadSide",
@@ -34,9 +33,7 @@ fun LoungeScreen() {
         Table(5L, "Table 5", 6, 1L),
         Table(6L, "Table 6", 2, 1L)
     )
-    HookahScaffold {
-        LoungeScreen(lounge, tables)
-    }
+    LoungeScreen(lounge, tables)
 
 }
 
@@ -99,6 +96,6 @@ private fun TableContent(table: Table) {
 @Composable
 fun LoungeScreenPreview() {
     HookahLoungeTheme {
-        LoungeScreen()
+        LoungeScreen(0L)
     }
 }

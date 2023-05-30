@@ -1,8 +1,8 @@
 package com.example.hookahlounge.domain.model
 
 data class Table(
-    val id: Long,
-    val name: String,
-    val seats: Int,
-    val loungeId: Long,
+    val id: Long = 0L,
+    val name: String = "",
+    val seats: Int = 1,
+    val loungeId: Long = 0L,
 )

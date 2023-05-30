@@ -2,9 +2,7 @@ package com.example.hookahlounge.ui.session
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextButton
@@ -23,11 +21,10 @@ import com.example.hookahlounge.domain.model.User
 import com.example.hookahlounge.ui.theme.HookahLoungeTheme
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HeadlineLarge
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahLazyColumn
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.TitleLarge
 
 @Composable
-fun SessionListScreen() {
+fun SessionListScreen(newSession: () -> Unit) {
     val list: List<Session> = listOf(
         Session(
             accessCode = "SR2222",
@@ -70,9 +67,8 @@ fun SessionListScreen() {
             lockDate = "20230-03-25Z17:00"
         ),
     )
-    HookahScaffold {
-        SessionListScreen(list)
-    }
+    SessionListScreen(list)
+
 }
 
 @Composable
@@ -87,7 +83,7 @@ private fun SessionContent(item: Session) {
     TextButton(onClick = { /*TODO*/ }) {
         Row(
             modifier = Modifier
-            .padding(16.dp),
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -118,7 +114,7 @@ private fun SessionContent(item: Session) {
 }
 
 @Composable
-private fun getSessionStatusIcon(status:Boolean): Painter {
+private fun getSessionStatusIcon(status: Boolean): Painter {
     return if (status) {
         painterResource(id = R.drawable.ic_lock_24)
     } else {
@@ -130,6 +126,6 @@ private fun getSessionStatusIcon(status:Boolean): Painter {
 @Composable
 fun LoungeListPreview() {
     HookahLoungeTheme {
-        SessionListScreen()
+        SessionListScreen { }
     }
 }

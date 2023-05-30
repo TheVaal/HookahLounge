@@ -22,15 +22,15 @@ import com.example.hookahlounge.domain.model.Session
 import com.example.hookahlounge.domain.model.Table
 import com.example.hookahlounge.domain.model.User
 import com.example.hookahlounge.ui.theme.HookahLoungeTheme
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahTextField
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.ToggleableText
 
 
 @Composable
-fun OrderScreen() {
+fun OrderScreen(id: Long?) {
+    val orderID = id ?: 0L
     val order = Order(
-        id = 1L,
+        id = orderID,
         table = Table(3L, "Table 3", 4, 1L),
         session = Session(
             accessCode = "SR2222",
@@ -42,9 +42,8 @@ fun OrderScreen() {
         ),
         sum = 0.0,
     )
-    HookahScaffold {
-        OrderScreen(order)
-    }
+    OrderScreen(order)
+
 }
 
 @Composable
@@ -54,9 +53,9 @@ private fun OrderScreen(order: Order) {
             .padding(16.dp)
             .fillMaxWidth()
     ) {
-        HookahTextField(value = order.table.name, label = "Table", onValueChange = { it })
+        order.table?.let { HookahTextField(value = it.name, label = "Table", onValueChange = { it }) }
 
-        HookahTextField(value = order.session.lockDate, label = "Date", onValueChange = { it })
+        order.session?.let { HookahTextField(value = it.lockDate, label = "Date", onValueChange = { it }) }
         var state by remember { mutableStateOf(0) }
         val titles = listOf("Tab 1", "Tab 2")
 
@@ -122,6 +121,6 @@ fun OrderHookahTab() {
 @Composable
 fun OrderScreenPreview() {
     HookahLoungeTheme {
-        OrderScreen()
+        OrderScreen(0L)
     }
 }

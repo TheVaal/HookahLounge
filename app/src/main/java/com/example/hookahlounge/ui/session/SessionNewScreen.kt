@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 import com.example.hookahlounge.domain.model.Lounge
 import com.example.hookahlounge.domain.model.Session
 import com.example.hookahlounge.domain.model.User
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahTextField
 
 @Composable
@@ -22,9 +21,7 @@ fun SessionNewScreen() {
         lounge = Lounge(1L, "BadSide", "вулиця Лермонтова, 37, Кривий Ріг,"),
         lockDate = "20230-03-25Z17:00"
     )
-    HookahScaffold {
-        SessionNewScreen(session)
-    }
+    SessionNewScreen(session)
 
 }
 

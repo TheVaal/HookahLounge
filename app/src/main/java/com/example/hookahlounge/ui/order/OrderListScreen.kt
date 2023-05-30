@@ -24,11 +24,10 @@ import com.example.hookahlounge.domain.model.User
 import com.example.hookahlounge.ui.theme.HookahLoungeTheme
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HeadlineLarge
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahLazyColumn
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
 import com.example.hookahlounge.ui.theme.hookah_ui_elements.TitleLarge
 
 @Composable
-fun OrderListScreen(){
+fun OrderListScreen(toOrder: () -> Unit) {
     val list: List<Order> = listOf(
         Order(
             id = 1L,
@@ -59,9 +58,8 @@ fun OrderListScreen(){
         )
 
     )
-    HookahScaffold {
-        OrderListScreen(list = list)
-    }
+    OrderListScreen(list = list)
+
 }
 
 @Composable
@@ -85,17 +83,21 @@ private fun OrderContent(item: Order) {
                     .padding(16.dp).fillMaxWidth(0.8f)
             ) {
                 HeadlineLarge(
-                    text = "#${item.id} ${item.table.name}",
+                    text = "#${item.id} ${item.table?.name}",
                     fontWeight = FontWeight(1000)
                 )
-                TitleLarge(
-                    text = item.session.lounge.name,
-                    fontWeight = FontWeight(500)
-                )
-                TitleLarge(
-                    text = item.session.lockDate,
-                    fontWeight = FontWeight(500)
-                )
+                item.session?.lounge?.let {
+                    TitleLarge(
+                        text = it.name,
+                        fontWeight = FontWeight(500)
+                    )
+                }
+                item.session?.let {
+                    TitleLarge(
+                        text = it.lockDate,
+                        fontWeight = FontWeight(500)
+                    )
+                }
             }
             Icon(
                 contentDescription = null,
@@ -119,6 +121,6 @@ fun getOrderStatusIcon(status:Boolean): Painter {
 @Composable
 fun OrderListPreview() {
     HookahLoungeTheme {
-        OrderListScreen()
+        OrderListScreen {  }
     }
 }
