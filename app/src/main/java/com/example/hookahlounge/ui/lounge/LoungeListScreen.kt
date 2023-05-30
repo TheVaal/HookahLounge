@@ -48,7 +48,7 @@ fun LoungeListScreen(toLounge: ()->(Unit)) {
 @Composable
 private fun LoungeListScreen(list: List<Lounge>, toLounge: ()->(Unit)) {
     HookahLazyColumn(items = list) {
-        LoungeContent(it as Lounge, toLounge)
+        LoungeContent(it, toLounge)
     }
 }
 

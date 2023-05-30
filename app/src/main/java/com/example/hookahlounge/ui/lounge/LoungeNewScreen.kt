@@ -62,7 +62,7 @@ private fun LoungeZone(lounge: Lounge) {
 @Composable
 private fun TableZone(tables: List<Table>) {
     HookahLazyGrid(items = tables) {
-        TableContent(it as Table)
+        TableContent(it)
     }
 }
 

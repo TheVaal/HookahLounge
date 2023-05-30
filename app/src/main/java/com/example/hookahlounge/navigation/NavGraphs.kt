@@ -47,7 +47,7 @@ object NavGraphs {
     )
     val root: NavGraph = NavGraph(
         route = "root",
-        startRoute = lounge,
+        startRoute = order,
         destinations = listOf(
 
         ),

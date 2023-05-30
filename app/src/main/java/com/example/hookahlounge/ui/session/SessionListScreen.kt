@@ -74,7 +74,7 @@ fun SessionListScreen(newSession: () -> Unit) {
 @Composable
 private fun SessionListScreen(list: List<Session>) {
     HookahLazyColumn(items = list) {
-        SessionContent(it as Session)
+        SessionContent(it)
     }
 }
 

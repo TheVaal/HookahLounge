@@ -58,20 +58,20 @@ fun OrderListScreen(toOrder: () -> Unit) {
         )
 
     )
-    OrderListScreen(list = list)
+    OrderListScreen(list = list, toOrder = toOrder)
 
 }
 
 @Composable
-private fun OrderListScreen(list: List<Order>){
+private fun OrderListScreen(list: List<Order>, toOrder: () -> Unit){
     HookahLazyColumn(items = list) {
-        OrderContent(it as Order)
+        OrderContent(it, toOrder)
     }
 }
 
 @Composable
-private fun OrderContent(item: Order) {
-    TextButton(onClick = { /*TODO*/ }) {
+private fun OrderContent(item: Order, toOrder: () -> Unit) {
+    TextButton(onClick = toOrder) {
         Row(
             modifier = Modifier
                 .padding(16.dp),

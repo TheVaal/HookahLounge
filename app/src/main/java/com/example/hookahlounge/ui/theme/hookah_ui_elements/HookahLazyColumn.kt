@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun HookahLazyColumn(items: List<Any>, content: @Composable (Any) -> (Unit)) {
+fun <T>HookahLazyColumn(items: List<T>, content: @Composable (T) -> (Unit)) {
     LazyColumn {
         items(items = items) { item ->
             OutlinedCard(
@@ -39,7 +39,7 @@ fun HookahLazyColumn(items: List<Any>, content: @Composable (Any) -> (Unit)) {
 }
 
 @Composable
-fun HookahLazyGrid(items: List<Any>, content: @Composable (Any) -> (Unit)) {
+fun <T>HookahLazyGrid(items: List<T>, content: @Composable (T) -> (Unit)) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 128.dp)
     ) {
