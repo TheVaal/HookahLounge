@@ -19,6 +19,7 @@ fun NavLoungeList(appState: AppState, navigator: LoungeNavigator, menuItems:List
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
+        currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() }
     ) {
         LoungeListScreen { navigator.toLounge(0L) }
@@ -35,6 +36,7 @@ fun NavLounge(appState: AppState, navigator: LoungeNavigator, id: Long?, menuIte
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
+        currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() }
     ) {
         LoungeScreen(id)

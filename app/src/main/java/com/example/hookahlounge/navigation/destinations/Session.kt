@@ -19,6 +19,7 @@ fun NavSessionList(appState: AppState, navigator: SessionNavigator, menuItems:Li
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
+        currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() }
     ) {
         SessionListScreen { navigator.toSession() }
@@ -33,6 +34,7 @@ fun NavSession(appState: AppState, navigator: LoungeNavigator, menuItems:List<Me
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
+        currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() }
     ) {
         SessionNewScreen()

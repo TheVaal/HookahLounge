@@ -24,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.LayoutDirection
+import com.example.hookahlounge.domain.model.User
 import com.example.hookahlounge.ui.navigationdrawer.MenuItem
 import com.example.hookahlounge.ui.navigationdrawer.NavigationDrawer
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ import kotlinx.coroutines.launch
 fun HookahScaffold(
     snackbarHostState: SnackbarHostState,
     drawerState: DrawerState,
+    currentUser: User,
     navigateUp: () -> Unit,
     menuItems: List<MenuItem>,
     content: @Composable () -> (Unit),
@@ -40,7 +42,7 @@ fun HookahScaffold(
     CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
         ModalNavigationDrawer(
             drawerState = drawerState,
-            drawerContent = { NavigationDrawer(menuItems) }
+            drawerContent = { NavigationDrawer(menuItems, currentUser) }
         ) {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
                 Scaffold(

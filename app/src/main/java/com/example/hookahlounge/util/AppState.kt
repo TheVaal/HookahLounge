@@ -17,6 +17,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.hookahlounge.domain.model.User
 import com.example.hookahlounge.util.SnackbarMessage
 import com.ramcosta.composedestinations.navigation.DependenciesContainerBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -28,8 +29,17 @@ fun rememberAppState(
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
     navController: NavHostController = rememberNavController(),
-    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-): AppState {
+    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
+    currentUser: User = remember{
+        User(
+            login = "vaal",
+            id = 1L,
+            name = "Valerii Krivoruchko",
+            phone = "+380684181893"
+        )
+    },
+
+    ): AppState {
     return remember(
         navController,
         coroutineScope,
@@ -40,7 +50,8 @@ fun rememberAppState(
             appContext = appContext,
             coroutineScope = coroutineScope,
             snackbarHostState = snackbarHostState,
-            drawerState = drawerState
+            drawerState = drawerState,
+            currentUser = currentUser
         )
     }
 }
@@ -52,6 +63,7 @@ class AppState(
     val snackbarHostState: SnackbarHostState,
     val coroutineScope: CoroutineScope,
     val drawerState: DrawerState,
+    val currentUser: User,
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController

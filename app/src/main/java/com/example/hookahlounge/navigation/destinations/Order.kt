@@ -18,6 +18,7 @@ fun NavOrderList(appState: AppState, navigator: OrderNavigator, menuItems:List<M
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
+        currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() }
     ) {
         OrderListScreen { navigator.toOrder(0L) }
@@ -32,6 +33,7 @@ fun NavOrder(appState: AppState, navigator: OrderNavigator, id: Long?, menuItems
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
+        currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() }
     ) {
         OrderScreen(id)
