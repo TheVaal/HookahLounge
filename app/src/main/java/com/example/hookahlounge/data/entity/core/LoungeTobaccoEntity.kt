@@ -5,18 +5,18 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "hookahMix",
+    tableName = "loungeTobacco",
     foreignKeys = [
         ForeignKey(
-            entity = LoungeTobaccoEntity::class,
+            entity = TobaccoEntity::class,
             parentColumns = ["id"],
-            childColumns = ["loungeTobaccoId"]
+            childColumns = ["tobaccoId"]
         ),
     ]
 )
-data class MixEntity(
+data class LoungeTobaccoEntity(
     @PrimaryKey val id: Long,
-    val orderId: Long,
-    val loungeTobaccoId: Long,
-    val weight: Double,
+    val tobaccoId: Long,
+    val loungeId: Long,
+    val price: Double,
 )

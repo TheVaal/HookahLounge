@@ -1,10 +1,27 @@
 package com.example.hookahlounge.data.entity.core
 
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "Order",
+    foreignKeys = [
+        ForeignKey(
+            entity = SessionEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["sessionId"]
+        ),
+        ForeignKey(
+            entity = TableEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["tableId"]
+        ),
+    ])
 data class OrderEntity(
-    val id: Long,
+    @PrimaryKey val id: Long,
     val loungeId: Long,
     val tableId: Long,
-    val sessionID: Long,
+    val sessionId: Long,
     val sum: Double,
     val closed: Boolean,
 )
