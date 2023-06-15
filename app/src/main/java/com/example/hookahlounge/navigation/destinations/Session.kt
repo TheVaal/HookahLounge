@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import com.example.hookahlounge.navigation.SessionNavGraph
 import com.example.hookahlounge.navigation.navigator.LoungeNavigator
 import com.example.hookahlounge.navigation.navigator.SessionNavigator
-import com.example.hookahlounge.ui.navigationdrawer.MenuItem
-import com.example.hookahlounge.ui.session.SessionListScreen
-import com.example.hookahlounge.ui.session.SessionNewScreen
-import com.example.hookahlounge.ui.theme.hookah_ui_elements.HookahScaffold
+import com.example.hookahlounge.presentation.navigationdrawer.MenuItem
+import com.example.hookahlounge.presentation.session.SessionListScreen
+import com.example.hookahlounge.presentation.session.SessionNewScreen
+import com.example.hookahlounge.presentation.hookah_ui_elements.HookahScaffold
 import com.ramcosta.composedestinations.annotation.Destination
 import ua.wwind.wms.core.ui.AppState
 
@@ -22,7 +22,7 @@ fun NavSessionList(appState: AppState, navigator: SessionNavigator, menuItems:Li
         currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() }
     ) {
-        SessionListScreen { navigator.toSession() }
+        SessionListScreen( newSession = { navigator.toSession() } )
     }
 }
 

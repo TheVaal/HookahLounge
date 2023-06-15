@@ -7,12 +7,13 @@ import com.example.hookahlounge.navigation.destinations.destinations.NavOrderDes
 import com.example.hookahlounge.navigation.destinations.destinations.NavOrderListDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionListDestination
-import com.example.hookahlounge.util.BaseNavigator
+import com.example.hookahlounge.navigation.destinations.destinations.NavTableDialogScreenDestination
+import com.example.hookahlounge.domain.util.BaseNavigator
 import com.ramcosta.composedestinations.navigation.navigate
 
 class CommonNavigator(
     private val navController: NavController,
-) :BaseNavigator, LoungeNavigator, SessionNavigator, OrderNavigator{
+) : BaseNavigator, LoungeNavigator, SessionNavigator, OrderNavigator {
     override fun toOrders() {
         navController.navigate(NavOrderListDestination)
     }
@@ -27,6 +28,14 @@ class CommonNavigator(
 
     override fun toLounge(id: Long?) {
         navController.navigate(NavLoungeDestination(id = id))
+    }
+
+    override fun toTable(id: Long) {
+        navController.navigate(NavTableDialogScreenDestination(id = id, loungeId = null))
+    }
+
+    override fun toNewTable(loungeId: Long?) {
+        navController.navigate(NavTableDialogScreenDestination(id = null, loungeId = loungeId))
     }
 
     override fun toSessions() {

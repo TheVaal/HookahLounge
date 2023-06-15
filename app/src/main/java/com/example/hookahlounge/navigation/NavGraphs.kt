@@ -7,6 +7,7 @@ import com.example.hookahlounge.navigation.destinations.destinations.NavOrderDes
 import com.example.hookahlounge.navigation.destinations.destinations.NavOrderListDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionListDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavTableDialogScreenDestination
 import com.example.hookahlounge.navigation.navigator.CommonNavigator
 import com.ramcosta.composedestinations.navigation.DependenciesContainerBuilder
 import com.ramcosta.composedestinations.spec.*
@@ -22,7 +23,8 @@ object NavGraphs {
         startRoute = NavLoungeListDestination,
         destinations = listOf(
             NavLoungeListDestination,
-            NavLoungeDestination
+            NavLoungeDestination,
+            NavTableDialogScreenDestination
 
         )
     )
@@ -47,7 +49,7 @@ object NavGraphs {
     )
     val root: NavGraph = NavGraph(
         route = "root",
-        startRoute = order,
+        startRoute = lounge,
         destinations = listOf(
 
         ),

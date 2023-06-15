@@ -2,14 +2,14 @@ package com.example.hookahlounge.data.entity
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.hookahlounge.data.dao.HardnessDao
-import com.example.hookahlounge.data.dao.HookahDao
-import com.example.hookahlounge.data.dao.LoungeDao
-import com.example.hookahlounge.data.dao.MenuDao
-import com.example.hookahlounge.data.dao.OrderDao
-import com.example.hookahlounge.data.dao.SessionDao
-import com.example.hookahlounge.data.dao.UserDao
-import com.example.hookahlounge.data.dao.WaiterCallDao
+import com.example.hookahlounge.data.entity.dao.HardnessDao
+import com.example.hookahlounge.data.entity.dao.HookahDao
+import com.example.hookahlounge.data.entity.dao.LoungeDao
+import com.example.hookahlounge.data.entity.dao.MenuDao
+import com.example.hookahlounge.data.entity.dao.OrderDao
+import com.example.hookahlounge.data.entity.dao.SessionDao
+import com.example.hookahlounge.data.entity.dao.UserDao
+import com.example.hookahlounge.data.entity.dao.WaiterCallDao
 import com.example.hookahlounge.data.entity.core.HardnessEntity
 import com.example.hookahlounge.data.entity.core.HookahEntity
 import com.example.hookahlounge.data.entity.core.InOrderEntity
@@ -24,6 +24,7 @@ import com.example.hookahlounge.data.entity.core.SessionEntity
 import com.example.hookahlounge.data.entity.core.TableEntity
 import com.example.hookahlounge.data.entity.core.TobaccoEntity
 import com.example.hookahlounge.data.entity.core.WaiterCallEntity
+import com.example.hookahlounge.data.entity.dao.TableDao
 
 @Database(
     entities = [
@@ -42,7 +43,7 @@ import com.example.hookahlounge.data.entity.core.WaiterCallEntity
         TobaccoEntity::class,
         WaiterCallEntity::class,
     ],
-    version = 1
+    version = 3
 )
 abstract class HookahLoungeDatabase : RoomDatabase() {
     abstract fun getHardnessDao() : HardnessDao
@@ -53,4 +54,5 @@ abstract class HookahLoungeDatabase : RoomDatabase() {
     abstract fun getSessionDao() : SessionDao
     abstract fun getUserDao() : UserDao
     abstract fun getWaiterCallDao() : WaiterCallDao
+    abstract fun getTableDao() : TableDao
 }

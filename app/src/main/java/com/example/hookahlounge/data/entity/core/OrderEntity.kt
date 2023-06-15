@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Order",
+@Entity(tableName = "order",
     foreignKeys = [
         ForeignKey(
             entity = SessionEntity::class,
@@ -24,4 +24,5 @@ data class OrderEntity(
     val sessionId: Long,
     val sum: Double,
     val closed: Boolean,
+    val status: String
 )

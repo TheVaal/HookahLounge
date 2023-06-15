@@ -9,7 +9,7 @@ data class SessionEntity(
     val accessCode: String,
     val ownerId: Long,
     val loungeId: Long,
-    val status: Boolean,
-    val lockDate: String,
+    val status: String,
+    val bookingDate: String,
 )
 

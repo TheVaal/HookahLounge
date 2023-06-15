@@ -8,5 +8,5 @@ import com.example.hookahlounge.data.entity.core.TableEntity
 data class LoungeWithTables(
     @Embedded val lounge: LoungeEntity,
     @Relation(parentColumn = "id", entityColumn = "loungeId")
-    val tables: List<TableEntity>,
+    val tables: List<TableEntity> = listOf(),
 )
