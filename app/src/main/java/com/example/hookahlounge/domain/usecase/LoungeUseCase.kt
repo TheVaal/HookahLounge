@@ -20,7 +20,7 @@ class LoungeUseCase @Inject constructor(
 ) {
     fun loadLoungeById(loungeId: Long): Flow<HookahResponse<Lounge>> {
         return loungeDbRepository.getLounge(loungeId).map {
-                HookahResponse.Success(it)
+                HookahResponse.Success(it.toLounge())
         }.onStart {
             val response: HookahResponse<LoungeWithTables> = loungeRepository.getLounge(loungeId)
             if (response is HookahResponse.Success) {

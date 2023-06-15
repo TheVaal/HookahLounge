@@ -28,20 +28,18 @@ import ua.wwind.wms.core.ui.AppState
 fun NavLoungeList(appState: AppState, navigator: LoungeNavigator, menuItems: List<MenuItem>) {
 
     HookahScaffold(
+        title = "Lounges",
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
         currentUser = appState.currentUser,
         navigateUp = { navigator.navigateUp() },
         floatingButton = {
-
             FloatingActionButton(
                 onClick = { navigator.toLounge(null) },
             ) {
                 Icon(Icons.Filled.Add, "Add table to lounge")
             }
-
-
         },
     ) {
         LoungeListScreen { id: Long -> navigator.toLounge(id) }
@@ -70,6 +68,7 @@ fun NavLounge(
 
     //toLounge =  { id: Long -> navigator.toLounge(id) },
     HookahScaffold(
+        title = "Lounge",
         snackbarHostState = appState.snackbarHostState,
         drawerState = appState.drawerState,
         menuItems = menuItems,
