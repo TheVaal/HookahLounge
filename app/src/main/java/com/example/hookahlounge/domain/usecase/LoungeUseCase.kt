@@ -1,5 +1,6 @@
 package com.example.hookahlounge.domain.usecase
 
+import com.example.hookahlounge.data.entity.core.LoungeEntity
 import com.example.hookahlounge.data.entity.projection.LoungeWithTables
 import com.example.hookahlounge.data.mappers.toDto
 import com.example.hookahlounge.data.mappers.toLounge
@@ -20,11 +21,26 @@ class LoungeUseCase @Inject constructor(
 ) {
     fun loadLoungeById(loungeId: Long): Flow<HookahResponse<Lounge>> {
         return loungeDbRepository.getLounge(loungeId).map {
-                HookahResponse.Success(it.toLounge())
+            HookahResponse.Success(it.toLounge())
         }.onStart {
             val response: HookahResponse<LoungeWithTables> = loungeRepository.getLounge(loungeId)
             if (response is HookahResponse.Success) {
                 loungeDbRepository.upsertLounge(response.data)
+            }
+        }
+    }
+
+    fun loadLounges(): Flow<HookahResponse<List<Lounge>>> {
+        return loungeDbRepository.getLounges().map { list ->
+            HookahResponse.Success(
+                list.map { lounge ->
+                    lounge.toLounge()
+                }
+            )
+        }.onStart {
+            val response: HookahResponse<List<LoungeEntity>> = loungeRepository.getLounges()
+            if (response is HookahResponse.Success) {
+                loungeDbRepository.upsertAll(response.data)
             }
         }
     }

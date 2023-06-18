@@ -17,6 +17,14 @@ class LoungeDbRepositoryImpl @Inject constructor(loungesDb: HookahLoungeDatabase
         return loungeDao.getLoungeById(id)
     }
 
+    override fun getLounges(): Flow<List<LoungeEntity>> {
+        return loungeDao.getLounges()
+    }
+
+    override suspend fun upsertAll(lounges: List<LoungeEntity>) {
+        loungeDao.upsertAll(lounges)
+    }
+
     override suspend fun upsertLounge(lounge: LoungeWithTables) {
         loungeDao.upsert(lounge.lounge)
         tableDao.upsertAll(lounge.tables)

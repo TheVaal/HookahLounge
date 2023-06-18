@@ -18,6 +18,9 @@ interface LoungeDao {
     @Query("SELECT * FROM lounge")
     fun pagingSource():PagingSource<Int, LoungeEntity>
 
+    @Query("SELECT * FROM lounge")
+    fun getLounges():Flow<List<LoungeEntity>>
+
     @Query("SELECT * FROM lounge WHERE id = :id")
     fun getLoungeById(id: Long): Flow<LoungeWithTables>
 

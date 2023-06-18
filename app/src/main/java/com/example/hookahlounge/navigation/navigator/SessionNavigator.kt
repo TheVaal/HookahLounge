@@ -4,5 +4,5 @@ import com.example.hookahlounge.domain.util.BaseNavigator
 
 interface SessionNavigator : BaseNavigator {
 
-    fun toSession()
+    fun toSession(id:Long =0L)
 }

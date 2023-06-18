@@ -11,6 +11,8 @@ fun SessionDto.toSessionEntity(): SessionEntity {
         status = status,
         accessCode = accessCode,
         ownerId = ownerId,
+        ownerCountryCode = ownerCountryCode,
+        ownerName = ownerName,
         bookingDate = bookingDate,
     )
 }
@@ -21,7 +23,22 @@ fun SessionEntity.toSession(): Session {
         loungeId = loungeId,
         status = status,
         accessCode = accessCode,
-        ownerId = ownerId,
+        ownerId = ownerId.toString(),
+        ownerCountryCode = ownerCountryCode.toString(),
+        ownerName = ownerName,
+        bookingDate = bookingDate,
+    )
+}
+
+fun Session.toDto(): SessionDto {
+    return SessionDto(
+        id = id,
+        loungeId = loungeId,
+        status = status,
+        accessCode = accessCode,
+        ownerId = ownerId.toLong(),
+        ownerCountryCode = ownerCountryCode.toLong(),
+        ownerName = ownerName,
         bookingDate = bookingDate,
     )
 }

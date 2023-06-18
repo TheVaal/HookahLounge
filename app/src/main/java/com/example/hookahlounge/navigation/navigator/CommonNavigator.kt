@@ -42,8 +42,8 @@ class CommonNavigator(
         navController.navigate(NavSessionListDestination)
     }
 
-    override fun toSession() {
-        navController.navigate(NavSessionDestination)
+    override fun toSession(id:Long) {
+        navController.navigate(NavSessionDestination(id))
     }
 
     override fun navigateUp() {

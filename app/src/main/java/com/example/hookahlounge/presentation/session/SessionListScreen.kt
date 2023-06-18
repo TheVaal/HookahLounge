@@ -36,23 +36,19 @@ import com.example.hookahlounge.presentation.session.viewmodel.SessionListViewMo
 
 @Composable
 fun SessionListScreen(
-    newSession: () -> Unit,
-    viewModel: SessionListViewModel = hiltViewModel()
+    toSession: (Long) -> Unit,
+    viewModel: SessionListViewModel = hiltViewModel(),
 ) {
     val sessions = viewModel.loungePagingFlow.collectAsLazyPagingItems()
-    SessionListScreen(sessions)
+    SessionListScreen(sessions, toSession)
 
 }
 
 @Composable
-private fun SessionListScreen(list: List<Session>) {
-    HookahLazyColumn(items = list) {
-        SessionContent(it)
-    }
-}
-
-@Composable
-private fun SessionListScreen(sessions: LazyPagingItems<Session>) {
+private fun SessionListScreen(
+    sessions: LazyPagingItems<Session>,
+    toSession: (Long) -> Unit,
+) {
     val context = LocalContext.current
     LaunchedEffect(key1 = sessions.loadState) {
         if (sessions.loadState.refresh is LoadState.Error) {
@@ -70,7 +66,7 @@ private fun SessionListScreen(sessions: LazyPagingItems<Session>) {
             )
         } else {
             HookahLazyColumn(items = sessions) {
-                SessionContent(it)
+                SessionContent(it, toSession)
             }
         }
         if (sessions.loadState.append == LoadState.Loading) {
@@ -84,8 +80,10 @@ private fun SessionListScreen(sessions: LazyPagingItems<Session>) {
 }
 
 @Composable
-private fun SessionContent(item: Session) {
-    TextButton(onClick = { /*TODO*/ }) {
+private fun SessionContent(
+    item: Session,
+    toSession: (Long) -> Unit,) {
+    TextButton(onClick = { toSession(item.id) }) {
         Row(
             modifier = Modifier
                 .padding(16.dp),
@@ -102,11 +100,11 @@ private fun SessionContent(item: Session) {
                     .padding(16.dp)
             ) {
                 HeadlineLarge(
-                    text = item.owner.name,
+                    text = item.ownerName,
                     fontWeight = FontWeight(1000)
                 )
                 TitleLarge(
-                    text = item.owner.phone,
+                    text = item.ownerId,
                     fontWeight = FontWeight(500)
                 )
                 TitleLarge(

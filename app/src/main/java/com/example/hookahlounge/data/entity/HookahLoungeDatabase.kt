@@ -43,7 +43,7 @@ import com.example.hookahlounge.data.entity.dao.TableDao
         TobaccoEntity::class,
         WaiterCallEntity::class,
     ],
-    version = 3
+    version = 4
 )
 abstract class HookahLoungeDatabase : RoomDatabase() {
     abstract fun getHardnessDao() : HardnessDao

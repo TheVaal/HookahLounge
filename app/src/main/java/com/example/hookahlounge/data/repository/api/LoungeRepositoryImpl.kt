@@ -11,33 +11,46 @@ import com.example.hookahlounge.domain.util.HookahResponse
 import retrofit2.HttpException
 import javax.inject.Inject
 
+const val DEFAULT_PAGE_SIZE = 20
 class LoungeRepositoryImpl @Inject constructor(
     private val api: HookahLoungeApi,
 ) : LoungeRepository {
     override suspend fun getLounges(): HookahResponse<List<LoungeEntity>> {
 
-        try {
-            val currentPage = 1
-            loadApiPage(currentPage)
+        return try {
+            val lounges = mutableListOf<LoungeDto>()
+            loadPage(
+                addAll = { responseData: List<LoungeDto> ->
+                    lounges.addAll(responseData)
+                }
+            )
+            HookahResponse.Success(data = lounges.map {
+                it.toLoungeEntity()
+            })
 
-        } catch (e :Exception){
-            println(e.message)
+        } catch (e: HttpException) {
+            HookahResponse.Error(e.message())
         }
-        return HookahResponse.Success(data = listOf())
+
     }
 
-    private suspend fun loadApiPage(currentPage: Int){
-        val response = api.getLounges(currentPage, 50)
-        if (response.isSuccessful){
-            val metadata = response.body()!!.meta
-            val data = response.body()!!.data
-            data.map {
-                it.toLoungeEntity()
-            }
-            if (metadata.currentPage != metadata.lastPage){
-                loadApiPage(currentPage.plus(1))
+
+    private suspend fun loadPage(
+        addAll: (List<LoungeDto>) -> (Unit),
+        currentPage: Int = 1
+    ) {
+        val response = api.getLounges(currentPage, DEFAULT_PAGE_SIZE)
+        if (response.isSuccessful) {
+            val responseMetadata = response.body()!!.meta
+            addAll(response.body()!!.data)
+            if (responseMetadata.currentPage!! < responseMetadata.lastPage!!) {
+                loadPage(
+                    addAll = addAll,
+                    currentPage = currentPage.plus(1)
+                )
             }
         }
+
     }
 
     override suspend fun getLounge(id: Long): HookahResponse<LoungeWithTables> {

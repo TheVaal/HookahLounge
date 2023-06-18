@@ -20,7 +20,6 @@ import com.example.hookahlounge.domain.model.Lounge
 import com.example.hookahlounge.domain.model.Order
 import com.example.hookahlounge.domain.model.Session
 import com.example.hookahlounge.domain.model.Table
-import com.example.hookahlounge.domain.model.User
 import com.example.hookahlounge.presentation.hookah_ui_elements.HookahTextField
 import com.example.hookahlounge.presentation.hookah_ui_elements.ToggleableText
 import com.example.hookahlounge.ui.theme.HookahLoungeTheme
@@ -35,7 +34,6 @@ fun OrderScreen(id: Long?) {
         session = Session(
             accessCode = "SR2222",
             id = 1L,
-            owner = User(name = "Alexander Vasilenko", id = 1L, phone = "+380684432269"),
             status = "false",
             lounge = Lounge(1L, "BadSide", "вулиця Лермонтова, 37, Кривий Ріг,"),
             bookingDate = "20230-03-25Z17:00"
