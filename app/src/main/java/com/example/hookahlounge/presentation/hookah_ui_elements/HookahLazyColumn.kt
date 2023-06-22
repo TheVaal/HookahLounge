@@ -18,30 +18,56 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 
 @Composable
-fun <T>HookahLazyColumn(items: List<T>, content: @Composable (T) -> (Unit)) {
+fun <T> HookahLazyColumn(
+    items: List<T>,
+    wrapContent: Boolean = true,
+    header: @Composable () -> (Unit) = {},
+    footer: @Composable () -> (Unit) = {},
+    content: @Composable (T) -> (Unit),
+) {
     LazyColumn {
-        items(items = items) { item ->
-            OutlinedCard(
-                elevation = CardDefaults.elevatedCardElevation(
-                    defaultElevation = 16.dp,
-                    pressedElevation = 16.dp,
-                    focusedElevation = 16.dp,
-                    hoveredElevation = 16.dp,
-                    draggedElevation = 16.dp,
-                    disabledElevation = 16.dp
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+        item {
+            Column(Modifier.fillMaxWidth()) {
+                header()
+            }
+        }
 
-            ) {
+        items(items = items) { item ->
+            if (wrapContent) {
+                OutlinedCard(
+                    elevation = CardDefaults.elevatedCardElevation(
+                        defaultElevation = 16.dp,
+                        pressedElevation = 16.dp,
+                        focusedElevation = 16.dp,
+                        hoveredElevation = 16.dp,
+                        draggedElevation = 16.dp,
+                        disabledElevation = 16.dp
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+
+                ) {
+                    content(item)
+                }
+            } else {
                 content(item)
+            }
+        }
+        item {
+            Column(Modifier.fillMaxWidth()) {
+                footer()
             }
         }
     }
 }
+
 @Composable
-fun <T : Any>HookahLazyColumn(items: LazyPagingItems<T>, content: @Composable (T) -> (Unit)) {
+fun <T : Any> HookahLazyColumn(
+    items: LazyPagingItems<T>,
+    columnItem: @Composable () -> (Unit) = {},
+    content: @Composable (T) -> (Unit),
+) {
     LazyColumn {
         items(
             count = items.itemCount,
@@ -66,10 +92,20 @@ fun <T : Any>HookahLazyColumn(items: LazyPagingItems<T>, content: @Composable (T
                 }
             }
         }
+        item {
+            Column(Modifier.fillMaxWidth()) {
+                columnItem()
+            }
+        }
     }
 }
+
 @Composable
-fun <T>HookahLazyGrid(items: List<T>, gridItem: @Composable () -> (Unit) = {}, content: @Composable (T) -> (Unit)) {
+fun <T> HookahLazyGrid(
+    items: List<T>,
+    gridItem: @Composable () -> (Unit) = {},
+    content: @Composable (T) -> (Unit),
+) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 128.dp)
     ) {

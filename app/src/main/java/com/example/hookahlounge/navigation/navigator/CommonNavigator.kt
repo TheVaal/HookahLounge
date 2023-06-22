@@ -9,9 +9,13 @@ import com.example.hookahlounge.navigation.destinations.destinations.NavSessionD
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionListDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavTableDialogScreenDestination
 import com.example.hookahlounge.domain.util.BaseNavigator
+import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDialogDestination
 import com.ramcosta.composedestinations.navigation.navigate
+import com.ramcosta.composedestinations.spec.NavGraphSpec
 
 class CommonNavigator(
+    private val navGraph: NavGraphSpec,
     private val navController: NavController,
 ) : BaseNavigator, LoungeNavigator, SessionNavigator, OrderNavigator {
     override fun toOrders() {
@@ -38,11 +42,25 @@ class CommonNavigator(
         navController.navigate(NavTableDialogScreenDestination(id = null, loungeId = loungeId))
     }
 
+    override fun toMenuList(loungeId: Long?) {
+        navController.navigate(NavMenuDestination(loungeId))
+    }
+
+    override fun toLoungeMenu(loungeMenuId: Long, menuId: Long, loungeId: Long) {
+        navController.navigate(
+            NavMenuDialogDestination(
+                loungeMenuId = loungeMenuId,
+                menuId = menuId,
+                loungeId = loungeId
+            )
+        )
+    }
+
     override fun toSessions() {
         navController.navigate(NavSessionListDestination)
     }
 
-    override fun toSession(id:Long) {
+    override fun toSession(id: Long) {
         navController.navigate(NavSessionDestination(id))
     }
 

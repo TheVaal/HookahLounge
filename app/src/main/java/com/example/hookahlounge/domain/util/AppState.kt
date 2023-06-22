@@ -1,6 +1,7 @@
-package ua.wwind.wms.core.ui
+package com.example.hookahlounge.domain.util
 
 import android.content.Context
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.SnackbarHostState
@@ -16,25 +17,24 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.hookahlounge.domain.model.User
-import com.example.hookahlounge.domain.util.SnackbarMessage
-import com.ramcosta.composedestinations.navigation.DependenciesContainerBuilder
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun rememberAppState(
     appContext: Context,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    navController: NavHostController = rememberNavController(),
+    navController: NavHostController = rememberAnimatedNavController(),
     drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
     currentUser: User = remember{
         User(
-            login = "vaal",
+            login = "val",
             id = 1L,
-            name = "Valerii Krivoruchko",
+            name = "Valerii Kryvoruchko",
             phone = "+380684181893"
         )
     },

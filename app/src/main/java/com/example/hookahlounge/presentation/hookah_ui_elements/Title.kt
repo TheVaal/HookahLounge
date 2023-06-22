@@ -84,12 +84,13 @@ fun HeadlineMedium(
     text: String,
     fontWeight: FontWeight? = null,
     align: TextAlign = TextAlign.Left,
+    width: Float = 1f
 ) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineMedium.copy(textAlign = align),
         fontWeight = fontWeight,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(width)
     )
 }
 

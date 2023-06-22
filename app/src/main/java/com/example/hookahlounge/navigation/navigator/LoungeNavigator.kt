@@ -4,7 +4,14 @@ import com.example.hookahlounge.domain.util.BaseNavigator
 
 interface LoungeNavigator : BaseNavigator {
 
-    fun toLounge(id:Long?)
-    fun toTable(id:Long)
-    fun toNewTable(loungeId:Long?)
+    fun toLounge(id: Long?)
+    fun toTable(id: Long)
+    fun toNewTable(loungeId: Long?)
+    fun toMenuList(loungeId: Long?)
+
+    fun toLoungeMenu(
+        loungeMenuId: Long = 0L,
+        menuId: Long = 0L,
+        loungeId: Long = 0L,
+    )
 }

@@ -48,7 +48,6 @@ class TableRepositoryImpl @Inject constructor(
                 )
             }
         }
-
     }
 
     override suspend fun loadTableById(tableId: Long): HookahResponse<TableEntity> {

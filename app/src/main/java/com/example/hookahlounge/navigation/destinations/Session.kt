@@ -15,7 +15,7 @@ import com.example.hookahlounge.presentation.navigationdrawer.MenuItem
 import com.example.hookahlounge.presentation.session.SessionDialog
 import com.example.hookahlounge.presentation.session.SessionListScreen
 import com.ramcosta.composedestinations.annotation.Destination
-import ua.wwind.wms.core.ui.AppState
+import com.example.hookahlounge.domain.util.AppState
 
 @SessionNavGraph(start = true)
 @Destination

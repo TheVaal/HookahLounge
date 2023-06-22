@@ -8,7 +8,7 @@ import com.example.hookahlounge.presentation.order.OrderListScreen
 import com.example.hookahlounge.presentation.order.OrderScreen
 import com.example.hookahlounge.presentation.hookah_ui_elements.HookahScaffold
 import com.ramcosta.composedestinations.annotation.Destination
-import ua.wwind.wms.core.ui.AppState
+import com.example.hookahlounge.domain.util.AppState
 
 @OrderNavGraph(start = true)
 @Destination
