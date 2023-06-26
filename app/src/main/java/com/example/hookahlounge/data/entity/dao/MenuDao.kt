@@ -30,10 +30,10 @@ interface MenuDao {
     suspend fun clearAllLoungeMenus()
 
     @Upsert
-    suspend fun upsertAllMenus(loungeMenus: List<MenuEntity>)
+    suspend fun upsertAllMenus(menus: List<MenuEntity>)
 
     @Upsert
-    suspend fun upsertMenu(loungeMenu: MenuEntity)
+    suspend fun upsertMenu(menu: MenuEntity)
 
     @Query("SELECT * FROM menu")
     fun getMenu(): Flow<List<MenuEntity>>

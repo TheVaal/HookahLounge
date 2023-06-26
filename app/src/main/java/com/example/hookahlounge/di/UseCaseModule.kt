@@ -1,20 +1,32 @@
 package com.example.hookahlounge.di
 
 import com.example.hookahSession.domain.usecase.SessionUseCase
+import com.example.hookahlounge.domain.repository.api.HardnessRepository
 import com.example.hookahlounge.domain.repository.api.LoungeMenuRepository
 import com.example.hookahlounge.domain.repository.api.LoungeRepository
+import com.example.hookahlounge.domain.repository.api.LoungeTobaccoRepository
+import com.example.hookahlounge.domain.repository.api.ManufacturerRepository
 import com.example.hookahlounge.domain.repository.api.MenuRepository
 import com.example.hookahlounge.domain.repository.api.SessionRepository
 import com.example.hookahlounge.domain.repository.api.TableRepository
+import com.example.hookahlounge.domain.repository.api.TobaccoRepository
+import com.example.hookahlounge.domain.repository.local.HardnessDbRepository
 import com.example.hookahlounge.domain.repository.local.LoungeDbRepository
 import com.example.hookahlounge.domain.repository.local.LoungeMenuDbRepository
+import com.example.hookahlounge.domain.repository.local.LoungeTobaccoDbRepository
+import com.example.hookahlounge.domain.repository.local.ManufacturerDbRepository
 import com.example.hookahlounge.domain.repository.local.MenuDbRepository
 import com.example.hookahlounge.domain.repository.local.SessionDbRepository
 import com.example.hookahlounge.domain.repository.local.TableDbRepository
+import com.example.hookahlounge.domain.repository.local.TobaccoDbRepository
+import com.example.hookahlounge.domain.usecase.HardnessUseCase
 import com.example.hookahlounge.domain.usecase.LoungeMenuUseCase
+import com.example.hookahlounge.domain.usecase.LoungeTobaccoUseCase
 import com.example.hookahlounge.domain.usecase.LoungeUseCase
+import com.example.hookahlounge.domain.usecase.ManufacturerUseCase
 import com.example.hookahlounge.domain.usecase.MenuUseCase
 import com.example.hookahlounge.domain.usecase.TableUseCase
+import com.example.hookahlounge.domain.usecase.TobaccoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -74,6 +86,50 @@ object UseCaseModule {
         return SessionUseCase(
             sessionDbRepository = sessionDbRepository,
             sessionRepository = sessionRepository
+        )
+    }
+
+    @Provides
+    fun provideLoungeTobaccoUseCase(
+        loungeTobaccoDbRepository: LoungeTobaccoDbRepository,
+        loungeTobaccoRepository: LoungeTobaccoRepository,
+    ): LoungeTobaccoUseCase {
+        return LoungeTobaccoUseCase(
+            loungeTobaccoDbRepository = loungeTobaccoDbRepository,
+            loungeTobaccoRepository = loungeTobaccoRepository
+        )
+    }
+
+    @Provides
+    fun provideHardnessUseCase(
+        hardnessTobaccoRepository: HardnessRepository,
+        hardnessTobaccoDbRepository: HardnessDbRepository,
+    ): HardnessUseCase {
+        return HardnessUseCase(
+            hardnessRepository = hardnessTobaccoRepository,
+            hardnessDbRepository = hardnessTobaccoDbRepository,
+        )
+    }
+
+    @Provides
+    fun provideManufacturerUseCase(
+        manufacturerRepository: ManufacturerRepository,
+        manufacturerDbRepository: ManufacturerDbRepository,
+    ): ManufacturerUseCase {
+        return ManufacturerUseCase(
+            manufacturerRepository = manufacturerRepository,
+            manufacturerDbRepository = manufacturerDbRepository,
+        )
+    }
+
+    @Provides
+    fun provideTobaccoUseCase(
+        tobaccoDbRepository: TobaccoDbRepository,
+        tobaccoRepository: TobaccoRepository,
+    ): TobaccoUseCase {
+        return TobaccoUseCase(
+            tobaccoDbRepository = tobaccoDbRepository,
+            tobaccoRepository = tobaccoRepository
         )
     }
 }

@@ -11,6 +11,8 @@ import com.example.hookahlounge.navigation.destinations.destinations.NavTableDia
 import com.example.hookahlounge.domain.util.BaseNavigator
 import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDialogDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavTobaccoDialogDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavTobaccoListDestination
 import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.spec.NavGraphSpec
 
@@ -51,6 +53,20 @@ class CommonNavigator(
             NavMenuDialogDestination(
                 loungeMenuId = loungeMenuId,
                 menuId = menuId,
+                loungeId = loungeId
+            )
+        )
+    }
+
+    override fun toTobaccoList(loungeId: Long?) {
+        navController.navigate(NavTobaccoListDestination(loungeId))
+    }
+
+    override fun toLoungeTobacco(loungeTobaccoId: Long, tobaccoId: Long, loungeId: Long) {
+        navController.navigate(
+            NavTobaccoDialogDestination(
+                loungeTobaccoId = loungeTobaccoId,
+                tobaccoId = tobaccoId,
                 loungeId = loungeId
             )
         )

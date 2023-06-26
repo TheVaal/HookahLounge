@@ -16,6 +16,6 @@ import com.example.hookahlounge.data.dto.api.TobaccoApi
 interface HookahLoungeApi: HardnessApi, HookahApi, InOrderApi, OrderApi, LoungeApi,
     TableApi, SessionApi, MixApi, ManufacturerApi, TobaccoApi, MenuApi {
     companion object {
-        const val BASE_URL = "https://a991-5-248-101-104.ngrok-free.app"
+        const val BASE_URL = "https://07ff-5-248-101-104.ngrok-free.app"
     }
 }

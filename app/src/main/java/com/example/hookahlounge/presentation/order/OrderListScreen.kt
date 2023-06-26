@@ -83,7 +83,11 @@ private fun OrderListScreen(orders: LazyPagingItems<Order>, toOrder: () -> (Unit
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun OrderContent(item: Order, toOrder: () -> Unit) {
-    ElevatedCard(onClick = toOrder) {
+    ElevatedCard(
+        modifier = Modifier
+        .fillMaxWidth(),
+        onClick = toOrder
+    ) {
         Row(
             modifier = Modifier
                 .padding(16.dp),

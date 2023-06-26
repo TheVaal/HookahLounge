@@ -6,7 +6,7 @@ import com.example.hookahlounge.data.entity.core.HardnessEntity
 import com.example.hookahlounge.data.entity.core.ManufacturerEntity
 import com.example.hookahlounge.data.entity.core.TobaccoEntity
 
-data class TobaccoByManufacturer(
+data class TobaccoWithFields(
     @Embedded val tobacco: TobaccoEntity,
     @Relation(parentColumn = "manufacturerId", entityColumn = "id")
     val manufacturer: ManufacturerEntity,

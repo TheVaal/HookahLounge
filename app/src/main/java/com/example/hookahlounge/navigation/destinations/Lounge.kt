@@ -86,7 +86,7 @@ fun NavLounge(
                 LoungeBottomBarContent(enabled = (currId != null),
                     addTable = { navigator.toNewTable(currId) },
                     openLoungeMenuSheet = {navigator.toMenuList(currId)},
-                    openLoungeTobaccoSheet = {}
+                    openLoungeTobaccoSheet = {navigator.toTobaccoList(currId)}
                 )
             }
         },

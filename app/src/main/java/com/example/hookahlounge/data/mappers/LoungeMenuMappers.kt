@@ -34,6 +34,15 @@ fun LoungeMenuWithFields.toModel(): LoungeMenu{
     )
 }
 
+fun LoungeMenu.toDto(): LoungeMenuDto {
+    return LoungeMenuDto(
+        id = id,
+        loungeId = loungeId,
+        menuId = menuId,
+        price = price.toDouble()
+    )
+}
+
 fun MenuDto.toEntity(): MenuEntity {
     return MenuEntity(
         id = id,
@@ -52,13 +61,5 @@ fun Menu.toDto(): MenuDto {
     return MenuDto(
         id = id,
         name = name
-    )
-}
-fun LoungeMenu.toDto(): LoungeMenuDto {
-    return LoungeMenuDto(
-        id = id,
-        loungeId = loungeId,
-        menuId = menuId,
-        price = price.toDouble()
     )
 }

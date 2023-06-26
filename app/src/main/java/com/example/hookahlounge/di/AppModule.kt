@@ -11,8 +11,8 @@ import com.example.hookahlounge.data.dto.mediators.OrderRemoteMediator
 import com.example.hookahlounge.data.dto.mediators.SessionRemoteMediator
 import com.example.hookahlounge.data.entity.HookahLoungeDatabase
 import com.example.hookahlounge.data.entity.core.LoungeEntity
-import com.example.hookahlounge.data.entity.core.OrderEntity
 import com.example.hookahlounge.data.entity.core.SessionEntity
+import com.example.hookahlounge.data.entity.projection.OrderWithFields
 import com.example.hookahlounge.domain.repository.api.TableRepository
 import com.example.hookahlounge.domain.util.AppCoroutineDispatchers
 import com.squareup.moshi.Moshi
@@ -89,7 +89,7 @@ object AppModule {
         orderDb: HookahLoungeDatabase,
         orderApi: HookahLoungeApi,
         tableRepository: TableRepository
-    ): Pager<Int, OrderEntity> {
+    ): Pager<Int, OrderWithFields> {
         return Pager(
             config = PagingConfig(pageSize = 5),
             remoteMediator = OrderRemoteMediator(

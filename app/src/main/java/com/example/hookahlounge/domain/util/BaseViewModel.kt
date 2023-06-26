@@ -2,6 +2,7 @@ package com.example.hookahlounge.domain.util
 
 import androidx.compose.material3.SnackbarDuration
 import androidx.lifecycle.ViewModel
+import com.example.hookahlounge.domain.model.Manufacturer
 import kotlinx.coroutines.CompletableJob
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelChildren

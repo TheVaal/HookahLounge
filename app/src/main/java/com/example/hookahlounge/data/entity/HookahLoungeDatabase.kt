@@ -24,7 +24,9 @@ import com.example.hookahlounge.data.entity.core.SessionEntity
 import com.example.hookahlounge.data.entity.core.TableEntity
 import com.example.hookahlounge.data.entity.core.TobaccoEntity
 import com.example.hookahlounge.data.entity.core.WaiterCallEntity
+import com.example.hookahlounge.data.entity.dao.ManufacturerDao
 import com.example.hookahlounge.data.entity.dao.TableDao
+import com.example.hookahlounge.data.entity.dao.TobaccoDao
 
 @Database(
     entities = [
@@ -43,7 +45,7 @@ import com.example.hookahlounge.data.entity.dao.TableDao
         TobaccoEntity::class,
         WaiterCallEntity::class,
     ],
-    version = 5
+    version = 6
 )
 abstract class HookahLoungeDatabase : RoomDatabase() {
     abstract fun getHardnessDao() : HardnessDao
@@ -55,4 +57,8 @@ abstract class HookahLoungeDatabase : RoomDatabase() {
     abstract fun getUserDao() : UserDao
     abstract fun getWaiterCallDao() : WaiterCallDao
     abstract fun getTableDao() : TableDao
+    abstract fun getManufacturerDao() : ManufacturerDao
+    abstract fun getTobaccoDao() : TobaccoDao
+
+
 }

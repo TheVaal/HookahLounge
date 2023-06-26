@@ -19,6 +19,8 @@ import com.example.hookahlounge.navigation.destinations.destinations.NavOrderLis
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionListDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavTableDialogScreenDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavTobaccoDialogDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavTobaccoListDestination
 import com.example.hookahlounge.navigation.navigator.CommonNavigator
 import com.ramcosta.composedestinations.navigation.DependenciesContainerBuilder
 import com.ramcosta.composedestinations.spec.*
@@ -37,7 +39,9 @@ object NavGraphs {
             NavLoungeDestination,
             NavTableDialogScreenDestination,
             NavMenuDestination,
-            NavMenuDialogDestination
+            NavMenuDialogDestination,
+            NavTobaccoDialogDestination,
+            NavTobaccoListDestination
 
         )
     )

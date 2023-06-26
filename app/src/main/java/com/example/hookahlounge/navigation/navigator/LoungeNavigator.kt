@@ -14,4 +14,12 @@ interface LoungeNavigator : BaseNavigator {
         menuId: Long = 0L,
         loungeId: Long = 0L,
     )
+
+    fun toTobaccoList(loungeId: Long?)
+
+    fun toLoungeTobacco(
+        loungeTobaccoId: Long = 0L,
+        tobaccoId: Long = 0L,
+        loungeId: Long = 0L,
+    )
 }

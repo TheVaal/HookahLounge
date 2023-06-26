@@ -9,33 +9,38 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TobaccoApi {
 
     @GET("api/v1/tobacco")
-    suspend fun getTobacco(): Response<DataWrapper<List<TobaccoDto>>>
+    suspend fun getTobacco(@Query("page") page: Int): Response<DataWrapper<List<TobaccoDto>>>
 
     @GET("api/v1/tobacco/{id}")
-    suspend fun getTobacco(@Path("id") id: Int): Response<DataWrapper<TobaccoDto>>
+    suspend fun getTobaccoById(@Path("id") id: Long): Response<DataWrapper<TobaccoDto>>
 
-    @PATCH("api/v1/tobacco/{id}")
-    suspend fun patchTobacco(@Path("id") id: Int, @Body tobacco: TobaccoDto): Response<ResponseBody>
+    @PUT("api/v1/tobacco/{id}")
+    suspend fun putTobacco(@Path("id") id: Long, @Body tobacco: TobaccoDto): Response<ResponseBody>
 
-    @POST("api/v1/tobacco/{id}")
-    suspend fun postTobacco(@Path("id") id: Int, @Body tobacco: TobaccoDto): Response<DataWrapper<TobaccoDto>>
+    @POST("api/v1/tobacco")
+    suspend fun postTobacco(@Body tobacco: TobaccoDto): Response<DataWrapper<TobaccoDto>>
 
     @GET("api/v1/loungeTobacco")
-    suspend fun getLoungeTobacco(): Response<DataWrapper<List<LoungeTobaccoDto>>>
+    suspend fun getLoungeTobacco(
+        @Query("page") page: Int,
+        @Query("loungeId[eq]") loungeId: Long
+    ): Response<DataWrapper<List<LoungeTobaccoDto>>>
 
     @GET("api/v1/loungeTobacco/{id}")
-    suspend fun getLoungeTobacco(@Path("id") id: Int): Response<DataWrapper<LoungeTobaccoDto>>
+    suspend fun getLoungeTobaccoById(@Path("id") id: Long): Response<DataWrapper<LoungeTobaccoDto>>
 
-    @PATCH("api/v1/loungeTobacco/{id}")
-    suspend fun patchLoungeTobacco(@Path("id") id: Int, @Body loungeTobacco: LoungeTobaccoDto): Response<ResponseBody>
+    @PUT("api/v1/loungeTobacco/{id}")
+    suspend fun putLoungeTobacco(@Path("id") id: Long, @Body loungeTobacco: LoungeTobaccoDto): Response<ResponseBody>
 
-    @POST("api/v1/loungeTobacco/{id}")
-    suspend fun postLoungeTobacco(@Path("id") id: Int, @Body loungeTobacco: LoungeTobaccoDto): Response<DataWrapper<LoungeTobaccoDto>>
+    @POST("api/v1/loungeTobacco")
+    suspend fun postLoungeTobacco(@Body loungeTobacco: LoungeTobaccoDto): Response<DataWrapper<LoungeTobaccoDto>>
 
 
 }

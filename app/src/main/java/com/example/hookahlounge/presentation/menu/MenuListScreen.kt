@@ -126,8 +126,6 @@ private fun MenuBottomSheet(
                 menu = it,
                 toLoungeMenu = toLoungeMenu)
         }
-
-
     }
 }
 

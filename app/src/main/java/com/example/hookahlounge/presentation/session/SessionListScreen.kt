@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -79,11 +81,12 @@ private fun SessionListScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SessionContent(
     item: Session,
     toSession: (Long) -> Unit,) {
-    TextButton(onClick = { toSession(item.id) }) {
+    ElevatedCard(onClick = { toSession(item.id) }) {
         Row(
             modifier = Modifier
                 .padding(16.dp),

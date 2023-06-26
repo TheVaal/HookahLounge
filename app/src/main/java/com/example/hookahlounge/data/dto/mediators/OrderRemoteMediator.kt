@@ -8,6 +8,7 @@ import androidx.room.withTransaction
 import com.example.hookahlounge.data.dto.HookahLoungeApi
 import com.example.hookahlounge.data.entity.HookahLoungeDatabase
 import com.example.hookahlounge.data.entity.core.OrderEntity
+import com.example.hookahlounge.data.entity.projection.OrderWithFields
 import com.example.hookahlounge.data.mappers.toOrderEntity
 import com.example.hookahlounge.domain.repository.api.TableRepository
 import com.example.hookahlounge.domain.util.onSuccess
@@ -20,11 +21,11 @@ class OrderRemoteMediator(
     private val orderDb: HookahLoungeDatabase,
     private val orderApi: HookahLoungeApi,
     private val tableRepository: TableRepository,
-) : RemoteMediator<Int, OrderEntity>() {
+) : RemoteMediator<Int, OrderWithFields>() {
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, OrderEntity>,
+        state: PagingState<Int, OrderWithFields>,
     ): MediatorResult {
         return try {
             val loadKey: Int = when (loadType) {
@@ -35,7 +36,7 @@ class OrderRemoteMediator(
                     if (lastItem == null) {
                         1
                     } else {
-                        (lastItem.id / state.config.pageSize).toInt() + 1
+                        (lastItem.order.id / state.config.pageSize).toInt() + 1
                     }
                 }
             }

@@ -41,7 +41,6 @@ import com.example.hookahlounge.presentation.hookah_ui_elements.HookahTextField
 import com.example.hookahlounge.presentation.hookah_ui_elements.PhoneNumberVisualTransformation
 import com.example.hookahlounge.presentation.hookah_ui_elements.TitleSmall
 import com.example.hookahlounge.presentation.session.viewmodel.SessionEvent
-import com.example.hookahlounge.presentation.session.viewmodel.SessionStatus
 import com.example.hookahlounge.presentation.session.viewmodel.SessionUiState
 import com.example.hookahlounge.presentation.session.viewmodel.SessionViewModel
 import java.text.SimpleDateFormat
@@ -125,7 +124,7 @@ private fun LoungeRow(
     onEvent: (SessionEvent) -> Unit,
 ) {
 
-    Row{
+    Row {
         LoungeSelectBox(session = session, loungeList = loungeList, onEvent = onEvent)
     }
 }
@@ -274,10 +273,12 @@ private fun StatusAccessRow(session: Session, onEvent: (SessionEvent) -> Unit) {
             onValueChange = {}
         )
         HookahSelectBox(
-            options = SessionUiState.getStatusList(),
+            options = SessionUiState.getStatusList().map {
+                it.value
+            },
             currentValue = session.status,
-            getter = { status: SessionStatus -> status.value },
-            onEvent = { value: String -> onEvent(SessionEvent.EnteredStatus(value)) }
+            getter = { status: String -> status },
+            onEvent = { event: String -> onEvent(SessionEvent.EnteredStatus(event)) }
         )
     }
 

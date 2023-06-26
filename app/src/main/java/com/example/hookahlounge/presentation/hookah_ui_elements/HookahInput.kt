@@ -64,12 +64,12 @@ fun HookahTextField(
 }
 
 @Composable
-fun <T>HookahSelectBox(
+fun <T> HookahSelectBox(
     options: List<T>,
-    currentValue: String,
-    getter: (T)-> (String),
-    onEvent: (String)-> (Unit)
-){
+    currentValue: T,
+    getter: (T) -> (String),
+    onEvent: (T) -> (Unit),
+) {
     var expanded by remember {
         mutableStateOf(false)
     }
@@ -82,16 +82,17 @@ fun <T>HookahSelectBox(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            options.forEach { status ->
+            options.forEach { value ->
                 DropdownMenuItem(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
                         expanded = false
                         // Do something with selected status
-                        onEvent(getter(status))
+                        onEvent(value)
+
                     },
-                    enabled = getter(status) != currentValue,
-                    text = { Text(getter(status)) }
+                    enabled = value != currentValue,
+                    text = { Text(getter(value)) }
                 )
             }
         }
