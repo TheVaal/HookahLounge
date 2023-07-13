@@ -71,7 +71,7 @@ fun getDrawerMaxSize(configuration: Configuration): Float {
 private fun NavigationDrawerHeader(currentUser: User) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(imageVector = Icons.Filled.Person, contentDescription = "Use name")
-        TitleMedium(text = currentUser.name, FontWeight.Bold)
+        TitleMedium(text = currentUser.login, FontWeight.Bold)
     }
 }
 

@@ -1,21 +1,25 @@
 package com.example.hookahlounge.data.dto.mediators
 
+import androidx.datastore.core.DataStore
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.example.hookahlounge.data.datastore.UserPreference
 import com.example.hookahlounge.data.dto.HookahLoungeApi
 import com.example.hookahlounge.data.entity.HookahLoungeDatabase
 import com.example.hookahlounge.data.entity.core.SessionEntity
 import com.example.hookahlounge.data.mappers.toSessionEntity
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class SessionRemoteMediator(
     private val sessionDb: HookahLoungeDatabase,
-    private val sessionApi: HookahLoungeApi
+    private val sessionApi: HookahLoungeApi,
+    private val userDataStore: DataStore<UserPreference>
 ): RemoteMediator<Int, SessionEntity>() {
 
     override suspend fun load(
@@ -35,9 +39,11 @@ class SessionRemoteMediator(
                     }
                 }
             }
+            val user = userDataStore.data.first()
             val response = sessionApi.getSessions(
                 page = loadKey,
-                pageSize = state.config.pageSize
+                pageSize = state.config.pageSize,
+                auth = "Bearer ${user.token}"
             )
 
             if (response.isSuccessful){

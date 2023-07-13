@@ -7,4 +7,5 @@ interface TableDbRepository {
 
     suspend fun upsertTable(table: TableEntity)
     suspend fun getTable(id: Long): Flow<TableEntity>
+
 }

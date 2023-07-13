@@ -1,4 +1,4 @@
-package com.example.hookahSession.domain.usecase
+package com.example.hookahlounge.domain.usecase
 
 
 import com.example.hookahlounge.data.entity.core.SessionEntity
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
-class SessionUseCase@Inject constructor(
+class SessionUseCase @Inject constructor(
     val sessionRepository: SessionRepository,
     val sessionDbRepository: SessionDbRepository,
 ) {
@@ -26,6 +26,21 @@ class SessionUseCase@Inject constructor(
             val response: HookahResponse<SessionEntity> = sessionRepository.getSession(SessionId)
             if (response is HookahResponse.Success) {
                 sessionDbRepository.upsertSession(response.data)
+            }
+        }
+    }
+
+    fun loadSessions(): Flow<HookahResponse<List<Session>>> {
+        return sessionDbRepository.getSessions().map {
+            HookahResponse.Success(
+                it.map { session ->
+                    session.toSession()
+                }
+            )
+        }.onStart {
+            val response: HookahResponse<List<SessionEntity>> = sessionRepository.getSessions()
+            if (response is HookahResponse.Success) {
+                sessionDbRepository.upsertAll(response.data)
             }
         }
     }

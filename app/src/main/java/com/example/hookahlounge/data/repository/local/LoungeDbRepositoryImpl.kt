@@ -12,6 +12,11 @@ class LoungeDbRepositoryImpl @Inject constructor(loungesDb: HookahLoungeDatabase
 
     private val loungeDao = loungesDb.getLoungeDao()
     private val tableDao = loungesDb.getTableDao()
+    private val menuDao = loungesDb.getMenuDao()
+    private val tobaccoDao = loungesDb.getTobaccoDao()
+    private val manufacturerDao = loungesDb.getManufacturerDao()
+    private val hardnessDao = loungesDb.getHardnessDao()
+
 
     override fun getLounge(id: Long): Flow<LoungeWithTables> {
         return loungeDao.getLoungeById(id)
@@ -28,6 +33,15 @@ class LoungeDbRepositoryImpl @Inject constructor(loungesDb: HookahLoungeDatabase
     override suspend fun upsertLounge(lounge: LoungeWithTables) {
         loungeDao.upsert(lounge.lounge)
         tableDao.upsertAll(lounge.tables)
+
+        hardnessDao.upsertAllHardness(lounge.tobacco.map { it.tobacco.hardness })
+        manufacturerDao.upsertAllManufacturers(lounge.tobacco.map { it.tobacco.manufacturer })
+
+        tobaccoDao.upsertAllTobacco(lounge.tobacco.map { it.tobacco.tobacco})
+        tobaccoDao.upsertAllLoungeTobaccos(lounge.tobacco.map { it.loungeTobacco})
+
+        menuDao.upsertAllMenus(lounge.menu.map { it.menu })
+        menuDao.upsertAllLoungeMenus(lounge.menu.map { it.loungeMenu })
     }
 
     override suspend fun upsertLounge(lounge: LoungeEntity) {

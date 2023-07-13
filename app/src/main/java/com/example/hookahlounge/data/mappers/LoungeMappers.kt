@@ -16,7 +16,8 @@ fun LoungeDto.toLoungeEntity(): LoungeEntity{
         country = country)
 }
 fun LoungeDto.toLoungeWithTables(): LoungeWithTables{
-    return LoungeWithTables(LoungeEntity(
+    return LoungeWithTables(
+        LoungeEntity(
         id = id,
         name = name,
         address = address,
@@ -24,7 +25,9 @@ fun LoungeDto.toLoungeWithTables(): LoungeWithTables{
         state = state,
         postalCode = postalCode,
         country = country),
-        tables.map { it.toTableEntity() }
+        tables.map { it.toTableEntity() },
+        tobacco.map{it.toEntityWithFields()},
+        menu.map { it.toEntityWithFields() }
     )
 }
 
@@ -70,6 +73,8 @@ fun LoungeWithTables.toLounge(): Lounge {
         state = lounge.state,
         postalCode = lounge.postalCode,
         country = lounge.country,
-        tables = tables.map { it.toTable() }
+        tables = tables.map { it.toTable() },
+        menu = menu.map { it.toModel() },
+        tobacco = tobacco.map { it.toModel() }
     )
 }

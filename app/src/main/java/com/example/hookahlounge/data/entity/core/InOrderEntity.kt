@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class InOrderEntity(
     @PrimaryKey val id: Long,
     val orderId: Long,
-    val guest: Int?,
+    val guest: Int,
     val menuId: Long,
     val quantity: Double,
 )

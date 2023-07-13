@@ -6,6 +6,7 @@ import com.example.hookahlounge.domain.util.HookahResponse
 
 interface SessionRepository {
     suspend fun getSession(id: Long): HookahResponse<SessionEntity>
+    suspend fun getSessions(): HookahResponse<List<SessionEntity>>
 
     suspend fun putSession(session: SessionDto): HookahResponse<SessionEntity>
 

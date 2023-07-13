@@ -1,6 +1,7 @@
 package com.example.hookahlounge.presentation.hookah_ui_elements
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,24 +30,28 @@ fun TitleLarge(
     text: String,
     fontWeight: FontWeight? = null,
     align: TextAlign = TextAlign.Left,
+    width: Float = 1f,
 ) {
     Text(
         text = text,
         style = MaterialTheme.typography.titleLarge.copy(textAlign = align),
         fontWeight = fontWeight,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(width)
     )
 }
 
 @Composable
-fun TitleMedium(text: String,
-                fontWeight: FontWeight? = null,
-                align: TextAlign = TextAlign.Left) {
+fun TitleMedium(
+    text: String,
+    fontWeight: FontWeight? = null,
+    align: TextAlign = TextAlign.Left,
+    width: Float = 1f,
+) {
     Text(
         text = text,
         style = MaterialTheme.typography.titleMedium.copy(textAlign = align),
         fontWeight = fontWeight,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(width)
     )
 }
 
@@ -55,13 +60,14 @@ fun TitleSmall(
     text: String,
     fontWeight: FontWeight? = null,
     align: TextAlign = TextAlign.Left,
+    width: Float = 1f,
 ) {
 
     Text(
         text = text,
         style = MaterialTheme.typography.titleSmall.copy(textAlign = align),
         fontWeight = fontWeight,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(width)
     )
 }
 
@@ -70,12 +76,13 @@ fun HeadlineLarge(
     text: String,
     fontWeight: FontWeight? = null,
     align: TextAlign = TextAlign.Left,
+    width: Float = 1f,
 ) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineLarge.copy(textAlign = align),
         fontWeight = fontWeight,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(width)
     )
 }
 
@@ -84,7 +91,7 @@ fun HeadlineMedium(
     text: String,
     fontWeight: FontWeight? = null,
     align: TextAlign = TextAlign.Left,
-    width: Float = 1f
+    width: Float = 1f,
 ) {
     Text(
         text = text,
@@ -99,12 +106,13 @@ fun HeadlineSmall(
     text: String,
     fontWeight: FontWeight? = null,
     align: TextAlign = TextAlign.Left,
+    width: Float = 1f,
 ) {
     Text(
         text = text,
         style = MaterialTheme.typography.headlineSmall.copy(textAlign = align),
         fontWeight = fontWeight,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(width)
     )
 }
 
@@ -146,10 +154,32 @@ fun ToggleableText(text: String, contentParam: Any? = null, content: @Composable
 
     }
     if (state) {
-        content(contentParam)
-    }
+        ToggleableWrapper {
+            content(contentParam)
+        }
 
+    }
 }
+
+@Composable
+fun ToggleableWrapper(content: @Composable () -> (Unit)) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth(),
+
+        shadowElevation = 4.dp
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            ) {
+            content()
+        }
+
+    }
+}
+
 
 @Composable
 private fun getToggleableIcon(state: Boolean): ImageVector {

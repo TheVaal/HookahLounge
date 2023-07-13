@@ -1,9 +1,9 @@
 package com.example.hookahlounge.data.dto.datasource
 
 data class LoungeMenuDto(
-    val id: Long,
-    val menuId: Long,
+    val id: Long = 0L,
+    val menuId: Long = 0L,
     val menu: MenuDto = MenuDto(),
-    val loungeId: Long,
-    val price: Double,
+    val loungeId: Long = 0L,
+    val price: Double = 0.0,
 )

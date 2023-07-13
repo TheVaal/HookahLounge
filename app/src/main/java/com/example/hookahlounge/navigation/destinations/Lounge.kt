@@ -30,7 +30,7 @@ import com.example.hookahlounge.presentation.navigationdrawer.MenuItem
 import com.ramcosta.composedestinations.annotation.Destination
 import com.example.hookahlounge.domain.util.AppState
 
-@LoungeNavGraph(start = true)
+@LoungeNavGraph
 @Destination
 @Composable
 fun NavLoungeList(appState: AppState, navigator: LoungeNavigator, menuItems: List<MenuItem>) {

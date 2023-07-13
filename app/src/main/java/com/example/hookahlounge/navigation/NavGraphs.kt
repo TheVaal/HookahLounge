@@ -10,6 +10,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.example.hookahlounge.navigation.destinations.NavGraph
+import com.example.hookahlounge.navigation.destinations.destinations.LoginScreenDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavLoungeDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavLoungeListDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDestination
@@ -33,7 +34,7 @@ object NavGraphs {
 
     val lounge: NavGraph = NavGraph(
         route = "lounge",
-        startRoute = NavLoungeListDestination,
+        startRoute = LoginScreenDestination,
         destinations = listOf(
             NavLoungeListDestination,
             NavLoungeDestination,
@@ -41,8 +42,8 @@ object NavGraphs {
             NavMenuDestination,
             NavMenuDialogDestination,
             NavTobaccoDialogDestination,
-            NavTobaccoListDestination
-
+            NavTobaccoListDestination,
+            LoginScreenDestination
         )
     )
     private val order: NavGraph = NavGraph(
@@ -68,7 +69,7 @@ object NavGraphs {
         route = "root",
         startRoute = lounge,
         destinations = listOf(
-
+            LoginScreenDestination
         ),
         nestedNavGraphs = listOf(
             lounge,

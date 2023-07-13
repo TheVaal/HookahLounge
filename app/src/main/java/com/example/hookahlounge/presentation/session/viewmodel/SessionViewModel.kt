@@ -1,7 +1,7 @@
 package com.example.hookahlounge.presentation.session.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.example.hookahSession.domain.usecase.SessionUseCase
+import com.example.hookahlounge.domain.usecase.SessionUseCase
 import com.example.hookahlounge.domain.model.Session
 import com.example.hookahlounge.domain.usecase.LoungeUseCase
 import com.example.hookahlounge.domain.util.AppCoroutineDispatchers

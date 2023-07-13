@@ -30,6 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
@@ -67,24 +68,29 @@ fun HookahTextField(
 fun <T> HookahSelectBox(
     options: List<T>,
     currentValue: T,
+    width: Float = 1f,
+    menuWidth: Float = 0.5f,
     getter: (T) -> (String),
     onEvent: (T) -> (Unit),
 ) {
     var expanded by remember {
         mutableStateOf(false)
     }
-    Box(modifier = Modifier.padding(4.dp)) {
-        IconButton(onClick = { expanded = true }) {
+    Box(modifier = Modifier.fillMaxWidth(width).padding(4.dp)) {
+        IconButton(
+            onClick = { expanded = true },
+            modifier = Modifier.align(Alignment.CenterEnd)
+        ) {
             Icon(Icons.Filled.ArrowDropDown, contentDescription = "Expand")
         }
         DropdownMenu(
-            modifier = Modifier.fillMaxWidth(0.5f),
+            modifier = Modifier.fillMaxWidth(menuWidth),
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
             options.forEach { value ->
                 DropdownMenuItem(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().padding(4.dp),
                     onClick = {
                         expanded = false
                         // Do something with selected status

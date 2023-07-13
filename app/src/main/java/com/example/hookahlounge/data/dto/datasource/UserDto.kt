@@ -1,8 +1,9 @@
 package com.example.hookahlounge.data.dto.datasource
 
+import com.squareup.moshi.Json
+
 data class UserDto(
-    val login: String,
-    val id: Long,
-    val name: String,
-    val phone: String,
+    @Json(name = "email") val login: String = "",
+    val password: String = "",
+    val token: String = "",
 )

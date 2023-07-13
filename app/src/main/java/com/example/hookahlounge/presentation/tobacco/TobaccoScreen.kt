@@ -114,7 +114,8 @@ private fun DialogFields(
                         value
                     )
                 )
-            })
+            }
+        )
     }
 
     Row(Modifier.fillMaxWidth()) {

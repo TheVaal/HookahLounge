@@ -98,6 +98,7 @@ fun SessionScreen(
     Column(
         modifier = Modifier
             .fillMaxWidth()
+
             .padding(16.dp)
     ) {
         SessionScreen(
@@ -139,7 +140,7 @@ private fun LoungeSelectBox(
     HookahTextField(
         value = session.lounge.name,
         label = "Lounge",
-        width = 0.8f,
+        width = 0.85f,
         readOnly = true,
         multiline = true,
         keyboardType = KeyboardType.Decimal,
@@ -231,7 +232,7 @@ private fun DateTimeRow(session: Session, onEvent: (SessionEvent) -> Unit) {
             value = session.bookingDate,
             label = "Booking date",
             readOnly = true,
-            width = 0.8f,
+            width = 0.85f,
             keyboardType = KeyboardType.Decimal,
             onValueChange = {}
         )
@@ -258,7 +259,7 @@ private fun StatusAccessRow(session: Session, onEvent: (SessionEvent) -> Unit) {
         HookahTextField(
             value = session.accessCode,
             label = "Access code",
-            width = 0.5f,
+            width = 0.55f,
             readOnly = true,
             keyboardType = KeyboardType.Decimal,
             onValueChange = {}
@@ -267,7 +268,7 @@ private fun StatusAccessRow(session: Session, onEvent: (SessionEvent) -> Unit) {
         HookahTextField(
             value = session.status,
             label = "Status",
-            width = 0.6f,
+            width = 0.65f,
             readOnly = true,
             keyboardType = KeyboardType.Decimal,
             onValueChange = {}
@@ -306,5 +307,5 @@ private fun SessionActions(
             TitleSmall(text = "Ok", align = TextAlign.Center)
         }
     }
-
+    Spacer(modifier = Modifier.height(8.dp))
 }

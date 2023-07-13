@@ -35,7 +35,7 @@ import com.example.hookahlounge.presentation.hookah_ui_elements.TitleLarge
 import com.example.hookahlounge.presentation.order.viewmodel.OrderListViewModel
 
 @Composable
-fun OrderListScreen(toOrder: () -> Unit, viewModel: OrderListViewModel = hiltViewModel()) {
+fun OrderListScreen(toOrder: (Long) -> Unit, viewModel: OrderListViewModel = hiltViewModel()) {
 
     val orders = viewModel.loungePagingFlow.collectAsLazyPagingItems()
 
@@ -44,14 +44,14 @@ fun OrderListScreen(toOrder: () -> Unit, viewModel: OrderListViewModel = hiltVie
 }
 
 @Composable
-private fun OrderListScreen(list: List<Order>, toOrder: () -> Unit){
+private fun OrderListScreen(list: List<Order>, toOrder: (Long) -> Unit){
     HookahLazyColumn(items = list) {
         OrderContent(it, toOrder)
     }
 }
 
 @Composable
-private fun OrderListScreen(orders: LazyPagingItems<Order>, toOrder: () -> (Unit)) {
+private fun OrderListScreen(orders: LazyPagingItems<Order>, toOrder: (Long) -> (Unit)) {
     val context = LocalContext.current
     LaunchedEffect(key1 = orders.loadState) {
         if (orders.loadState.refresh is LoadState.Error) {
@@ -82,11 +82,11 @@ private fun OrderListScreen(orders: LazyPagingItems<Order>, toOrder: () -> (Unit
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun OrderContent(item: Order, toOrder: () -> Unit) {
+private fun OrderContent(item: Order, toOrder: (Long) -> Unit) {
     ElevatedCard(
         modifier = Modifier
         .fillMaxWidth(),
-        onClick = toOrder
+        onClick = { toOrder(item.id) }
     ) {
         Row(
             modifier = Modifier
@@ -96,19 +96,20 @@ private fun OrderContent(item: Order, toOrder: () -> Unit) {
 
             Column(
                 modifier = Modifier
-                    .padding(16.dp).fillMaxWidth(0.8f)
+                    .padding(16.dp)
+                    .fillMaxWidth(0.8f)
             ) {
                 HeadlineLarge(
-                    text = "#${item.id} ${item.table?.name}",
+                    text = "#${item.id} ${item.table.name}",
                     fontWeight = FontWeight(1000)
                 )
-                item.session?.lounge?.let {
+                item.session.lounge.let {
                     TitleLarge(
                         text = it.name,
                         fontWeight = FontWeight(500)
                     )
                 }
-                item.session?.let {
+                item.session.let {
                     TitleLarge(
                         text = it.bookingDate,
                         fontWeight = FontWeight(500)
@@ -118,7 +119,9 @@ private fun OrderContent(item: Order, toOrder: () -> Unit) {
             Icon(
                 contentDescription = null,
                 painter = getOrderStatusIcon(item.closed),
-                modifier = Modifier.fillMaxHeight().fillMaxWidth(0.4f)
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth(0.4f)
             )
         }
     }

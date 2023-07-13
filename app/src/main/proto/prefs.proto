@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.example.application";
+option java_multiple_files = true;
+
+message User {
+  string  login = 1;
+  string  password = 2;
+  string  authToken = 3;
+  int64  workplace_id = 4;
+}

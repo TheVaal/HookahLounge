@@ -52,7 +52,6 @@ class TobaccoUseCase@Inject constructor(
     }
 
     suspend fun postTobacco(tobacco: Tobacco): HookahResponse<Tobacco> {
-
         val res = tobaccoRepository.postTobacco(tobacco.toDto())
             .onSuccess {
                 tobaccoDbRepository.upsertTobacco(it.tobacco)

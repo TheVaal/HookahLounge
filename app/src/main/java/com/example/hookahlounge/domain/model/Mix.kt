@@ -1,8 +1,8 @@
 package com.example.hookahlounge.domain.model
 
 data class Mix(
-    val id: Long,
-    val orderId: Long,
-    val tobaccoId: Long,
-    val weight: Double,
+    val id: Long = 0L,
+    val orderId: Long = 0L,
+    val weight: String = "",
+    val hookah: List<Hookah> = listOf()
 )

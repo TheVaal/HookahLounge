@@ -1,16 +1,20 @@
 package com.example.hookahlounge.data.repository.api
 
+import androidx.datastore.core.DataStore
+import com.example.hookahlounge.data.datastore.UserPreference
 import com.example.hookahlounge.data.dto.HookahLoungeApi
 import com.example.hookahlounge.data.dto.datasource.LoungeTobaccoDto
 import com.example.hookahlounge.data.entity.projection.LoungeTobaccoWithFields
 import com.example.hookahlounge.data.mappers.toEntityWithFields
 import com.example.hookahlounge.domain.repository.api.LoungeTobaccoRepository
 import com.example.hookahlounge.domain.util.HookahResponse
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import javax.inject.Inject
 
 class LoungeTobaccoRepositoryImpl @Inject constructor(
     private val api: HookahLoungeApi,
+    private val dataStore: DataStore<UserPreference>,
 ) : LoungeTobaccoRepository {
 
     override suspend fun getLoungeTobacco(loungeId: Long): HookahResponse<List<LoungeTobaccoWithFields>> {
@@ -36,7 +40,12 @@ class LoungeTobaccoRepositoryImpl @Inject constructor(
         loungeId: Long,
         currentPage: Int = 1,
     ) {
-        val response = api.getLoungeTobacco(currentPage, loungeId)
+        val response = api.getLoungeTobacco(
+            currentPage,
+            loungeId,
+            "Bearer ${dataStore.data.first().token}"
+
+        )
         if (response.isSuccessful) {
             val responseMetadata = response.body()!!.meta
             addAll(response.body()!!.data)
@@ -52,7 +61,10 @@ class LoungeTobaccoRepositoryImpl @Inject constructor(
 
     override suspend fun getLoungeTobaccoById(id: Long): HookahResponse<LoungeTobaccoWithFields> {
         return try {
-            val response = api.getLoungeTobaccoById(id)
+            val response = api.getLoungeTobaccoById(
+                id,
+                "Bearer ${dataStore.data.first().token}"
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toEntityWithFields())
             } else {
@@ -66,7 +78,11 @@ class LoungeTobaccoRepositoryImpl @Inject constructor(
     override suspend fun putLoungeTobacco(
         loungeTobacco: LoungeTobaccoDto,
     ): HookahResponse<LoungeTobaccoWithFields> {
-        val response = api.putLoungeTobacco(loungeTobacco.id, loungeTobacco)
+        val response = api.putLoungeTobacco(
+            loungeTobacco.id,
+            loungeTobacco,
+            "Bearer ${dataStore.data.first().token}"
+        )
         return try {
             if (response.isSuccessful) {
                 HookahResponse.Success(loungeTobacco.toEntityWithFields())
@@ -80,7 +96,10 @@ class LoungeTobaccoRepositoryImpl @Inject constructor(
 
     override suspend fun postLoungeTobacco(loungeTobacco: LoungeTobaccoDto): HookahResponse<LoungeTobaccoWithFields> {
         return try {
-            val response = api.postLoungeTobacco(loungeTobacco)
+            val response = api.postLoungeTobacco(
+                loungeTobacco,
+                "Bearer ${dataStore.data.first().token}"
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toEntityWithFields())
             } else {

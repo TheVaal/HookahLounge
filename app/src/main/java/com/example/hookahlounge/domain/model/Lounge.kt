@@ -8,5 +8,7 @@ data class Lounge(
     val state: String = "",
     val postalCode: String = "",
     val country: String = "",
-    val tables: List<Table> = listOf()
+    val tables: List<Table> = listOf(),
+    val menu: List<LoungeMenu> = listOf(),
+    val tobacco: List<LoungeTobacco> = listOf()
 )

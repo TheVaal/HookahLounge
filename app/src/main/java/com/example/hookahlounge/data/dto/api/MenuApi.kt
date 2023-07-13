@@ -7,6 +7,7 @@ import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -15,27 +16,54 @@ import retrofit2.http.Query
 interface MenuApi {
 
     @GET("api/v1/menu")
-    suspend fun getMenus(@Query("page") page: Int): Response<DataWrapper<List<MenuDto>>>
+    suspend fun getMenus(
+        @Query("page") page: Int,
+        @Header("Authorization") auth: String
+    ): Response<DataWrapper<List<MenuDto>>>
 
     @GET("api/v1/menu/{id}")
-    suspend fun getMenuById(@Path("id") id: Long): Response<DataWrapper<MenuDto>>
+    suspend fun getMenuById(
+        @Path("id") id: Long,
+        @Header("Authorization") auth: String
+    ): Response<DataWrapper<MenuDto>>
 
     @PUT("api/v1/menu/{id}")
-    suspend fun putMenu(@Path("id") id: Long, @Body tobacco: MenuDto): Response<ResponseBody>
+    suspend fun putMenu(
+        @Path("id") id: Long,
+        @Body tobacco: MenuDto,
+        @Header("Authorization") auth: String
+    ): Response<ResponseBody>
 
     @POST("api/v1/menu")
-    suspend fun postMenu(@Body tobacco: MenuDto): Response<DataWrapper<MenuDto>>
+    suspend fun postMenu(
+        @Body tobacco: MenuDto,
+        @Header("Authorization") auth: String
+    ): Response<DataWrapper<MenuDto>>
 
     @GET("api/v1/loungeMenu")
-    suspend fun getLoungeMenu(@Query("page") page: Int, @Query("loungeId[eq]") loungeId: Long): Response<DataWrapper<List<LoungeMenuDto>>>
+    suspend fun getLoungeMenu(
+        @Query("page") page: Int,
+        @Query("loungeId[eq]") loungeId: Long,
+        @Header("Authorization") auth: String
+    ): Response<DataWrapper<List<LoungeMenuDto>>>
 
     @GET("api/v1/loungeMenu/{id}")
-    suspend fun getLoungeMenuById(@Path("id") id: Long): Response<DataWrapper<LoungeMenuDto>>
+    suspend fun getLoungeMenuById(
+        @Path("id") id: Long,
+        @Header("Authorization") auth: String
+    ): Response<DataWrapper<LoungeMenuDto>>
 
     @PUT("api/v1/loungeMenu/{id}")
-    suspend fun putLoungeMenu(@Path("id") id: Long, @Body loungeMenu: LoungeMenuDto): Response<ResponseBody>
+    suspend fun putLoungeMenu(
+        @Path("id") id: Long,
+        @Body loungeMenu: LoungeMenuDto,
+        @Header("Authorization") auth: String
+    ): Response<ResponseBody>
 
     @POST("api/v1/loungeMenu")
-    suspend fun postLoungeMenu(@Body loungeMenu: LoungeMenuDto): Response<DataWrapper<LoungeMenuDto>>
+    suspend fun postLoungeMenu(
+        @Body loungeMenu: LoungeMenuDto,
+        @Header("Authorization") auth: String
+    ): Response<DataWrapper<LoungeMenuDto>>
 
 }

@@ -6,6 +6,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import com.example.hookahlounge.domain.util.AppState
 import com.example.hookahlounge.navigation.NonDismissableDialog
 import com.example.hookahlounge.navigation.SessionNavGraph
 import com.example.hookahlounge.navigation.navigator.LoungeNavigator
@@ -15,7 +16,6 @@ import com.example.hookahlounge.presentation.navigationdrawer.MenuItem
 import com.example.hookahlounge.presentation.session.SessionDialog
 import com.example.hookahlounge.presentation.session.SessionListScreen
 import com.ramcosta.composedestinations.annotation.Destination
-import com.example.hookahlounge.domain.util.AppState
 
 @SessionNavGraph(start = true)
 @Destination
@@ -48,7 +48,7 @@ fun NavSession(
     id: Long,
 ) {
 
-    ElevatedCard {
+    ElevatedCard() {
         SessionDialog(id = id) { navigator.navigateUp() }
     }
 

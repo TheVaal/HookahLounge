@@ -1,16 +1,20 @@
 package com.example.hookahlounge.data.repository.api
 
+import androidx.datastore.core.DataStore
+import com.example.hookahlounge.data.datastore.UserPreference
 import com.example.hookahlounge.data.dto.HookahLoungeApi
 import com.example.hookahlounge.data.dto.datasource.LoungeMenuDto
 import com.example.hookahlounge.data.entity.projection.LoungeMenuWithFields
 import com.example.hookahlounge.data.mappers.toEntityWithFields
 import com.example.hookahlounge.domain.repository.api.LoungeMenuRepository
 import com.example.hookahlounge.domain.util.HookahResponse
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import javax.inject.Inject
 
 class LoungeMenuRepositoryImpl @Inject constructor(
     private val api: HookahLoungeApi,
+    private val dataStore: DataStore<UserPreference>,
 ) : LoungeMenuRepository {
     override suspend fun loadLoungeMenuByLoungeId(loungeId: Long): HookahResponse<List<LoungeMenuWithFields>> {
         return try {
@@ -35,7 +39,11 @@ class LoungeMenuRepositoryImpl @Inject constructor(
         currentPage: Int = 1,
         loungeId: Long,
     ) {
-        val response = api.getLoungeMenu(currentPage, loungeId)
+        val response = api.getLoungeMenu(
+            currentPage,
+            loungeId,
+            "Bearer ${dataStore.data.first().token}"
+        )
         if (response.isSuccessful) {
             val responseMetadata = response.body()!!.meta
             addAll(response.body()!!.data)
@@ -51,7 +59,10 @@ class LoungeMenuRepositoryImpl @Inject constructor(
 
     override suspend fun loadLoungeMenuById(loungeMenuId: Long): HookahResponse<LoungeMenuWithFields> {
         return try {
-            val response = api.getLoungeMenuById(loungeMenuId)
+            val response = api.getLoungeMenuById(
+                loungeMenuId,
+                "Bearer ${dataStore.data.first().token}"
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toEntityWithFields())
             } else {
@@ -63,7 +74,11 @@ class LoungeMenuRepositoryImpl @Inject constructor(
     }
 
     override suspend fun putLoungeMenu(loungeMenu: LoungeMenuDto): HookahResponse<LoungeMenuWithFields> {
-        val response = api.putLoungeMenu(loungeMenu.id, loungeMenu)
+        val response = api.putLoungeMenu(
+            loungeMenu.id,
+            loungeMenu,
+            "Bearer ${dataStore.data.first().token}"
+        )
         return if (response.isSuccessful){
             HookahResponse.Success(loungeMenu.toEntityWithFields())
         } else {
@@ -73,7 +88,10 @@ class LoungeMenuRepositoryImpl @Inject constructor(
 
     override suspend fun postLoungeMenu(loungeMenu: LoungeMenuDto): HookahResponse<LoungeMenuWithFields> {
         return try {
-            val response = api.postLoungeMenu(loungeMenu)
+            val response = api.postLoungeMenu(
+                loungeMenu,
+                "Bearer ${dataStore.data.first().token}"
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toEntityWithFields())
             } else {

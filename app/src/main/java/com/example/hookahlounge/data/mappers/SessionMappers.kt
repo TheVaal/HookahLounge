@@ -51,8 +51,8 @@ fun Session.toDto(): SessionDto {
         loungeId = loungeId,
         status = status,
         accessCode = accessCode,
-        ownerId = ownerId.toLong(),
-        ownerCountryCode = ownerCountryCode.toLong(),
+        ownerId = if (ownerId != "") ownerId.toLong() else 0L,
+        ownerCountryCode = if (ownerCountryCode != "") ownerCountryCode.toLong() else 0L,
         ownerName = ownerName,
         bookingDate = bookingDate,
     )

@@ -1,16 +1,16 @@
 package com.example.hookahlounge.navigation.navigator
 
 import androidx.navigation.NavController
+import com.example.hookahlounge.domain.util.BaseNavigator
 import com.example.hookahlounge.navigation.destinations.destinations.NavLoungeDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavLoungeListDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDestination
+import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDialogDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavOrderDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavOrderListDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavSessionListDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavTableDialogScreenDestination
-import com.example.hookahlounge.domain.util.BaseNavigator
-import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDestination
-import com.example.hookahlounge.navigation.destinations.destinations.NavMenuDialogDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavTobaccoDialogDestination
 import com.example.hookahlounge.navigation.destinations.destinations.NavTobaccoListDestination
 import com.ramcosta.composedestinations.navigation.navigate
@@ -24,7 +24,7 @@ class CommonNavigator(
         navController.navigate(NavOrderListDestination)
     }
 
-    override fun toOrder(id: Long?) {
+    override fun toOrder(id: Long) {
         navController.navigate(NavOrderDestination(id = id))
     }
 

@@ -1,17 +1,20 @@
 package com.example.hookahlounge.data.dto.mediators
 
+import androidx.datastore.core.DataStore
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.example.hookahlounge.data.datastore.UserPreference
 import com.example.hookahlounge.data.dto.HookahLoungeApi
 import com.example.hookahlounge.data.entity.HookahLoungeDatabase
-import com.example.hookahlounge.data.entity.core.OrderEntity
 import com.example.hookahlounge.data.entity.projection.OrderWithFields
 import com.example.hookahlounge.data.mappers.toOrderEntity
+import com.example.hookahlounge.domain.repository.api.SessionRepository
 import com.example.hookahlounge.domain.repository.api.TableRepository
 import com.example.hookahlounge.domain.util.onSuccess
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -21,6 +24,8 @@ class OrderRemoteMediator(
     private val orderDb: HookahLoungeDatabase,
     private val orderApi: HookahLoungeApi,
     private val tableRepository: TableRepository,
+    private val sessionRepository: SessionRepository,
+    private val userDataStore: DataStore<UserPreference>,
 ) : RemoteMediator<Int, OrderWithFields>() {
 
     override suspend fun load(
@@ -40,9 +45,11 @@ class OrderRemoteMediator(
                     }
                 }
             }
+            val user = userDataStore.data.first()
             val response = orderApi.getOrders(
                 page = loadKey,
-                pageSize = state.config.pageSize
+                pageSize = state.config.pageSize,
+                auth = "Bearer ${user.token}"
             )
 
             if (response.isSuccessful) {
@@ -57,6 +64,9 @@ class OrderRemoteMediator(
                             orderDb.getTableDao().upsert(table)
                         }
 
+                        sessionRepository.getSession(it.sessionId).onSuccess { session ->
+                            orderDb.getSessionDao().upsert(session)
+                        }
                         it.toOrderEntity()
                     }
                     orderDb.getOrderDao().upsertAll(orderEntities)

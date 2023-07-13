@@ -1,16 +1,20 @@
 package com.example.hookahlounge.data.repository.api
 
+import androidx.datastore.core.DataStore
+import com.example.hookahlounge.data.datastore.UserPreference
 import com.example.hookahlounge.data.dto.HookahLoungeApi
 import com.example.hookahlounge.data.dto.datasource.TableDto
 import com.example.hookahlounge.data.entity.core.TableEntity
 import com.example.hookahlounge.data.mappers.toTableEntity
 import com.example.hookahlounge.domain.repository.api.TableRepository
 import com.example.hookahlounge.domain.util.HookahResponse
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import javax.inject.Inject
 
 class TableRepositoryImpl @Inject constructor(
     private val api: HookahLoungeApi,
+    private val dataStore: DataStore<UserPreference>,
 ) : TableRepository {
     override suspend fun loadTablesByLoungeId(loungeId: Long): HookahResponse<List<TableEntity>> {
 
@@ -36,7 +40,11 @@ class TableRepositoryImpl @Inject constructor(
         currentPage: Int = 1,
         loungeId: Long,
     ) {
-        val response = api.getTables(currentPage, loungeId)
+        val response = api.getTables(
+            currentPage,
+            loungeId,
+            "Bearer ${dataStore.data.first().token}"
+        )
         if (response.isSuccessful) {
             val responseMetadata = response.body()!!.meta
             addAll(response.body()!!.data)
@@ -52,7 +60,10 @@ class TableRepositoryImpl @Inject constructor(
 
     override suspend fun loadTableById(tableId: Long): HookahResponse<TableEntity> {
         return try {
-            val response = api.getTable(tableId)
+            val response = api.getTable(
+                tableId,
+                "Bearer ${dataStore.data.first().token}"
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toTableEntity())
             } else {
@@ -65,7 +76,10 @@ class TableRepositoryImpl @Inject constructor(
 
     override suspend fun postTable(table: TableDto): HookahResponse<TableEntity> {
         return try {
-            val response = api.postTable(table)
+            val response = api.postTable(
+                table,
+                "Bearer ${dataStore.data.first().token}"
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toTableEntity())
             } else {
@@ -77,7 +91,11 @@ class TableRepositoryImpl @Inject constructor(
     }
 
     override suspend fun putTable(table: TableDto): HookahResponse<TableEntity> {
-        val response = api.putTable(table.id, table)
+        val response = api.putTable(
+            table.id,
+            table,
+            "Bearer ${dataStore.data.first().token}"
+        )
         return if (response.isSuccessful){
             HookahResponse.Success(table.toTableEntity())
         } else {

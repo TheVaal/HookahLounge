@@ -24,6 +24,7 @@ import com.example.hookahlounge.data.entity.core.SessionEntity
 import com.example.hookahlounge.data.entity.core.TableEntity
 import com.example.hookahlounge.data.entity.core.TobaccoEntity
 import com.example.hookahlounge.data.entity.core.WaiterCallEntity
+import com.example.hookahlounge.data.entity.dao.InOrderDao
 import com.example.hookahlounge.data.entity.dao.ManufacturerDao
 import com.example.hookahlounge.data.entity.dao.TableDao
 import com.example.hookahlounge.data.entity.dao.TobaccoDao
@@ -45,7 +46,7 @@ import com.example.hookahlounge.data.entity.dao.TobaccoDao
         TobaccoEntity::class,
         WaiterCallEntity::class,
     ],
-    version = 6
+    version = 10
 )
 abstract class HookahLoungeDatabase : RoomDatabase() {
     abstract fun getHardnessDao() : HardnessDao
@@ -53,6 +54,7 @@ abstract class HookahLoungeDatabase : RoomDatabase() {
     abstract fun getLoungeDao() : LoungeDao
     abstract fun getMenuDao() : MenuDao
     abstract fun getOrderDao() : OrderDao
+    abstract fun getInOrderDao() : InOrderDao
     abstract fun getSessionDao() : SessionDao
     abstract fun getUserDao() : UserDao
     abstract fun getWaiterCallDao() : WaiterCallDao

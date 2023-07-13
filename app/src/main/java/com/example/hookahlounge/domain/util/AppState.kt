@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.hookahlounge.domain.model.Lounge
 import com.example.hookahlounge.domain.model.User
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import kotlinx.coroutines.CoroutineScope
@@ -33,17 +34,16 @@ fun rememberAppState(
     currentUser: User = remember{
         User(
             login = "val",
-            id = 1L,
-            name = "Valerii Kryvoruchko",
-            phone = "+380684181893"
         )
     },
+    lounge: Lounge = remember{Lounge()},
 
     ): AppState {
     return remember(
         navController,
         coroutineScope,
-        snackbarHostState
+        snackbarHostState,
+        lounge
     ) {
         AppState(
             navController = navController,
@@ -75,6 +75,8 @@ class AppState(
 
     var shouldShowSettingsDialog by mutableStateOf(false)
         private set
+
+    var lounge by mutableStateOf(Lounge())
 
     fun setShowSettingsDialog(shouldShow: Boolean) {
         shouldShowSettingsDialog = shouldShow

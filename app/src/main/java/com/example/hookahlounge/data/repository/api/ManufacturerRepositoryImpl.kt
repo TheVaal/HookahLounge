@@ -1,16 +1,20 @@
 package com.example.hookahlounge.data.repository.api
 
+import androidx.datastore.core.DataStore
+import com.example.hookahlounge.data.datastore.UserPreference
 import com.example.hookahlounge.data.dto.HookahLoungeApi
 import com.example.hookahlounge.data.dto.datasource.ManufacturerDto
 import com.example.hookahlounge.data.entity.core.ManufacturerEntity
 import com.example.hookahlounge.data.mappers.toEntity
 import com.example.hookahlounge.domain.repository.api.ManufacturerRepository
 import com.example.hookahlounge.domain.util.HookahResponse
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import javax.inject.Inject
 
 class ManufacturerRepositoryImpl@Inject constructor(
     private val api: HookahLoungeApi,
+    private val dataStore: DataStore<UserPreference>,
 ): ManufacturerRepository {
     override suspend fun getManufacturer(): HookahResponse<List<ManufacturerEntity>> {
         return try {
@@ -33,7 +37,10 @@ class ManufacturerRepositoryImpl@Inject constructor(
         addAll: (List<ManufacturerDto>) -> (Unit),
         currentPage: Int = 1
     ) {
-        val response = api.getManufacturer(currentPage)
+        val response = api.getManufacturer(
+            currentPage,
+            "Bearer ${dataStore.data.first().token}"
+        )
         if (response.isSuccessful) {
             val responseMetadata = response.body()!!.meta
             addAll(response.body()!!.data)
@@ -48,7 +55,10 @@ class ManufacturerRepositoryImpl@Inject constructor(
 
     override suspend fun getManufacturerById(id: Long): HookahResponse<ManufacturerEntity> {
         return try {
-            val response = api.getManufacturerById(id)
+            val response = api.getManufacturerById(
+                id,
+                "Bearer ${dataStore.data.first().token}"
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toEntity())
             } else {
@@ -62,7 +72,11 @@ class ManufacturerRepositoryImpl@Inject constructor(
     override suspend fun putManufacturer(
         manufacturer: ManufacturerDto,
     ): HookahResponse<ManufacturerEntity> {
-        val response = api.putManufacturer(manufacturer.id, manufacturer)
+        val response = api.putManufacturer(
+            manufacturer.id,
+            manufacturer,
+            "Bearer ${dataStore.data.first().token}"
+        )
         return if (response.isSuccessful){
             HookahResponse.Success(manufacturer.toEntity())
         } else {
@@ -72,7 +86,11 @@ class ManufacturerRepositoryImpl@Inject constructor(
 
     override suspend fun postManufacturer(manufacturer: ManufacturerDto): HookahResponse<ManufacturerEntity> {
         return try {
-            val response = api.postManufacturer(manufacturer)
+            val response = api.postManufacturer(
+                manufacturer,
+                "Bearer ${dataStore.data.first().token}"
+
+            )
             if (response.isSuccessful) {
                 HookahResponse.Success(response.body()!!.data.toEntity())
             } else {
